@@ -5,8 +5,12 @@
  */
 package hu.ptemik.gallery;
 
+import hu.ptemik.gallery.control.Encrypt;
+import hu.ptemik.gallery.dto.User;
 import hu.ptemik.gallery.hibernate.HibernateUtil;
 import java.util.Date;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,36 +23,42 @@ import static org.junit.Assert.*;
  * @author János
  */
 public class TestForReal {
-      
-    public void TestForReal() {
-        
-        
-    }
+    private SessionFactory sessionFactory;
+    private Session session;
     
     @BeforeClass
     public static void setUpClass() {
+    }
+    
+    @Before
+    public void setUp() {
+        sessionFactory = HibernateUtil.getSessionFactory();
+        session = sessionFactory.openSession();
+    }
+    
+    @Test    
+    public void createUserTest() {
         try {
-            HibernateUtil.getSessionFactory().openSession().beginTransaction();
+            User user = new User();
+            user.setFirstName("Péter");
+            user.setLastName("Farkas");
+            user.setPasswordHash(Encrypt.encrypt("lolololol"));
+            user.setUserName("wolfman");
+            user.setEmail("asd@posta.hu");
+            
+            session.save(user);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
+    }
+    
+    @After
+    public void tearDown() {
+        session.close();
+        sessionFactory.close();
     }
     
     @AfterClass
     public static void tearDownClass() {
     }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

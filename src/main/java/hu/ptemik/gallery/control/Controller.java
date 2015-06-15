@@ -17,7 +17,7 @@ import org.hibernate.Session;
  *
  * @author János
  */
-public class Controler {
+public class Controller {
 
     public List<User> queryUsers() {
         Session session = HibernateUtil.getSessionFactory().openSession();
