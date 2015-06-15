@@ -5,6 +5,8 @@
  */
 package hu.ptemik.gallery.hibernate;
 
+import hu.ptemik.gallery.dto.Picture;
+import hu.ptemik.gallery.dto.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -24,6 +26,8 @@ public class HibernateUtil {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
             Configuration configuration = new Configuration().configure();
+            configuration.addAnnotatedClass(User.class);
+            configuration.addAnnotatedClass(Picture.class);
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().
                     applySettings(configuration.getProperties());
 

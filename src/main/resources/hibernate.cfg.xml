@@ -8,7 +8,8 @@
       org.hibernate.dialect.DerbyDialect
    </property>
    <property name="hibernate.connection.driver_class">
-      com.mysql.jdbc.Driver
+      <!--com.mysql.jdbc.Driver-->
+      org.apache.derby.jdbc.EmbeddedDriver
    </property>
 
    
@@ -18,7 +19,7 @@
       Change back to MySql when done
        jdbc:mysql://localhost:3306/test
        -->
-       jdbc:derby:gallery
+       jdbc:derby:gallery;create=true
    </property>
    
    <property name="hibernate.connection.username">
@@ -26,7 +27,7 @@
    </property>
    
    <property name="hibernate.connection.password">
-       
+       root
    </property>
    
    <property name="hbm2ddl.auto">
@@ -36,8 +37,8 @@
 <property name="show_sql">true</property>
 
    <!-- Annotated Entity class -->
-   <mapping class="main.java.hu.ptemik.gallery.dto.User"/>
-   <mapping class="main.java.hu.ptemik.gallery.dto.Picture"/>
+   <mapping class="hu.ptemik.gallery.dto.User"/>
+   <mapping class="hu.ptemik.gallery.dto.Picture"/>
 
 </session-factory>
 </hibernate-configuration>

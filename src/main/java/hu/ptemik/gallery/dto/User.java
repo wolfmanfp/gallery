@@ -41,8 +41,8 @@ public class User implements Serializable {
     private String lastName;
 
     @OneToMany
-    @JoinTable(name="USER_VEHICLE", joinColumns = @JoinColumn(name="USER_ID"),
-            inverseJoinColumns = @JoinColumn(name="VEHICLE_ID"))
+    @JoinTable(name="USER_PICTURES", joinColumns = @JoinColumn(name="ID"),
+            inverseJoinColumns = @JoinColumn(name="PICTURE_ID"))
     
     private Collection<Picture> pictures = new ArrayList<>();
     
