@@ -44,7 +44,7 @@ public class User implements Serializable {
     @JoinTable(name="USER_VEHICLE", joinColumns = @JoinColumn(name="USER_ID"),
             inverseJoinColumns = @JoinColumn(name="VEHICLE_ID"))
     
-    private Collection<String> pictures = new ArrayList<>();
+    private Collection<Picture> pictures = new ArrayList<>();
     
     public User() {
     }
@@ -109,6 +109,10 @@ public class User implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void addPicture(Picture pic) {
+        pictures.add(pic);
     }
     
     
