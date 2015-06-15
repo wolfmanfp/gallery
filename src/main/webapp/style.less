@@ -1,26 +1,27 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
 @hatterszin: #286090;
+@tortfeher: #ddd;
 
-h1, li, p {
+h1, li, p, label, legend {
     font-family: 'Roboto', sans-serif;
 }
 
 .navbar(){
     background-color: @hatterszin;
     p {
-        color: #ddd;
+        color: @tortfeher;
     }
 }
 
 .navbar-href() {
     a {
-        color: #ddd;
+        color: @tortfeher;
         &:hover {
-            color: #eee;
+            color: @tortfeher + #111;
         }
         &:visited {
-            color: #bbb;
+            color: @tortfeher - #222;
         }
     }
 }
@@ -45,13 +46,13 @@ h1, li, p {
     margin-bottom: 0px;
     h1 {
         padding-top: 100px;
-        color:white;
+        color: white;
     }
     p {
         padding-top: 20px;
-        .btn-primary {
-            border-radius: 0px;
-        }
+    }
+    .btn-primary {
+        border-radius: 0px;
     }
     &:nth-child(2) {
         background: url('pictures/bg01.jpg') no-repeat;
@@ -62,4 +63,20 @@ h1, li, p {
     &:nth-child(4) {
         background: url('pictures/bg03.jpg') no-repeat;
     }    
+}
+
+.gallery-form {
+    width: 480px;
+    margin: 0 auto;
+    label, legend {
+        color: @tortfeher;
+        font-weight: normal;
+    }
+    input {
+        border-radius: 0px;
+    }
+}
+
+.jumbotron-form {
+    height: 550px;
 }

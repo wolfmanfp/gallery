@@ -8,17 +8,16 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="style.css" >
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-
     </head>
     <body>
         <header class="navbar navbar-default navbar-static-top">
             <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#"><img src="logo.png" alt="Gallery"></a>
+                <div class="navbar-header navbar-left">
+                    <img class="navbar-brand" src="logo.png" alt="Gallery">
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><i class="fa fa-user"></i> Regisztráció</a></li>
-                    <li><a href="#"><i class="fa fa-sign-in"></i> Bejelentkezés</a></li>
+                    <li><a href="registration.html"><i class="fa fa-user"></i> Regisztráció</a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-in"></i> Bejelentkezés</a></li>
                     <li><a href="#"><i class="fa fa-picture-o"></i> user</a></li>
                     <li><a href="#"><i class="fa fa-cloud-upload"></i> Feltöltés</a></li>
                     <li><a href="#"><i class="fa fa-users"></i> Felhasználók</a></li>
@@ -28,7 +27,7 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>Oszd meg legszebb képeidet</h1>
-                <p><a href="#" class="btn btn-lg btn-primary">Regisztráció</a></p>
+                <p><a href="registration.html" class="btn btn-lg btn-primary">Regisztráció</a></p>
             </div>
         </div>
         <div class="jumbotron">
@@ -40,7 +39,7 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
-                <p><a href="#" class="btn btn-lg btn-primary">Latinul van!</a></p>
+                <p><a href="login.html" class="btn btn-lg btn-primary">Latinul van!</a></p>
             </div>
         </div>
         <footer class="navbar-static-bottom">

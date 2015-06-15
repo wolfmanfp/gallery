@@ -1,7 +1,9 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 h1,
 li,
-p {
+p,
+label,
+legend {
   font-family: 'Roboto', sans-serif;
 }
 .navbar-static-top {
@@ -10,31 +12,31 @@ p {
   background-color: #286090;
 }
 .navbar-static-top p {
-  color: #ddd;
+  color: #dddddd;
 }
 .navbar-static-top .navbar-right li a {
-  color: #ddd;
+  color: #dddddd;
 }
 .navbar-static-top .navbar-right li a:hover {
-  color: #eee;
+  color: #eeeeee;
 }
 .navbar-static-top .navbar-right li a:visited {
-  color: #bbb;
+  color: #bbbbbb;
 }
 .navbar-static-bottom {
   background-color: #286090;
 }
 .navbar-static-bottom p {
-  color: #ddd;
+  color: #dddddd;
 }
 .navbar-static-bottom a {
-  color: #ddd;
+  color: #dddddd;
 }
 .navbar-static-bottom a:hover {
-  color: #eee;
+  color: #eeeeee;
 }
 .navbar-static-bottom a:visited {
-  color: #bbb;
+  color: #bbbbbb;
 }
 .jumbotron {
   height: 500px;
@@ -48,7 +50,7 @@ p {
 .jumbotron p {
   padding-top: 20px;
 }
-.jumbotron p .btn-primary {
+.jumbotron .btn-primary {
   border-radius: 0px;
 }
 .jumbotron:nth-child(2) {
@@ -59,5 +61,20 @@ p {
 }
 .jumbotron:nth-child(4) {
   background: url('pictures/bg03.jpg') no-repeat;
+}
+.gallery-form {
+  width: 480px;
+  margin: 0 auto;
+}
+.gallery-form label,
+.gallery-form legend {
+  color: #dddddd;
+  font-weight: normal;
+}
+.gallery-form input {
+  border-radius: 0px;
+}
+.jumbotron-form {
+  height: 550px;
 }
 /*# sourceMappingURL=style.css.map */
