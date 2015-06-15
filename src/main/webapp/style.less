@@ -1,0 +1,65 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+@hatterszin: #286090;
+
+h1, li, p {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar(){
+    background-color: @hatterszin;
+    p {
+        color: #ddd;
+    }
+}
+
+.navbar-href() {
+    a {
+        color: #ddd;
+        &:hover {
+            color: #eee;
+        }
+        &:visited {
+            color: #bbb;
+        }
+    }
+}
+
+.navbar-static-top  {
+    margin-bottom: 0px;
+    border-bottom: 0px;
+    .navbar();
+    .navbar-right li {
+        .navbar-href();
+    }
+}
+
+.navbar-static-bottom {
+    .navbar();
+    .navbar-href();
+}
+
+.jumbotron {
+    height: 500px;
+    background-size: cover;
+    margin-bottom: 0px;
+    h1 {
+        padding-top: 100px;
+        color:white;
+    }
+    p {
+        padding-top: 20px;
+        .btn-primary {
+            border-radius: 0px;
+        }
+    }
+    &:nth-child(2) {
+        background: url('pictures/bg01.jpg') no-repeat;
+    }
+    &:nth-child(3){
+        background: url('pictures/bg02.jpg') no-repeat;
+    }
+    &:nth-child(4) {
+        background: url('pictures/bg03.jpg') no-repeat;
+    }    
+}

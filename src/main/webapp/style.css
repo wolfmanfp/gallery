@@ -1,0 +1,63 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+h1,
+li,
+p {
+  font-family: 'Roboto', sans-serif;
+}
+.navbar-static-top {
+  margin-bottom: 0px;
+  border-bottom: 0px;
+  background-color: #286090;
+}
+.navbar-static-top p {
+  color: #ddd;
+}
+.navbar-static-top .navbar-right li a {
+  color: #ddd;
+}
+.navbar-static-top .navbar-right li a:hover {
+  color: #eee;
+}
+.navbar-static-top .navbar-right li a:visited {
+  color: #bbb;
+}
+.navbar-static-bottom {
+  background-color: #286090;
+}
+.navbar-static-bottom p {
+  color: #ddd;
+}
+.navbar-static-bottom a {
+  color: #ddd;
+}
+.navbar-static-bottom a:hover {
+  color: #eee;
+}
+.navbar-static-bottom a:visited {
+  color: #bbb;
+}
+.jumbotron {
+  height: 500px;
+  background-size: cover;
+  margin-bottom: 0px;
+}
+.jumbotron h1 {
+  padding-top: 100px;
+  color: white;
+}
+.jumbotron p {
+  padding-top: 20px;
+}
+.jumbotron p .btn-primary {
+  border-radius: 0px;
+}
+.jumbotron:nth-child(2) {
+  background: url('pictures/bg01.jpg') no-repeat;
+}
+.jumbotron:nth-child(3) {
+  background: url('pictures/bg02.jpg') no-repeat;
+}
+.jumbotron:nth-child(4) {
+  background: url('pictures/bg03.jpg') no-repeat;
+}
+/*# sourceMappingURL=style.css.map */
