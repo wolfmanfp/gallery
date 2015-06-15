@@ -88,5 +88,11 @@ public class Picture implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "Picture{" + "pictureId=" + pictureId + ", user=" + user + ", title=" + title + ", description=" + description + ", url=" + url + '}';
+    }
+ 
     
 }

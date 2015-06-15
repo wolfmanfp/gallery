@@ -114,6 +114,11 @@ public class User implements Serializable {
     public void addPicture(Picture pic) {
         pictures.add(pic);
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", userName=" + userName + ", passwordHash=" + passwordHash + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", pictures=" + pictures + '}';
+    }
     
     
 }

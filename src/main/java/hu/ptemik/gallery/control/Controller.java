@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
+import org.apache.derby.client.am.SqlException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -45,18 +46,21 @@ public class Controller {
 
     }
     
-    public void newUser(User user){
-         Session session = HibernateUtil.getSessionFactory().openSession();
+    public void newUser(User user) throws SqlException{
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        
         if (user !=null){
            session.beginTransaction();
            session.persist(user);
         }
+        session.getTransaction().commit();
         session.close();
     }
     
     public void newPicture(Picture pic, User user) throws Exception{
         Session session = HibernateUtil.getSessionFactory().openSession();
-        
+        session.beginTransaction();
         if (user !=null && pic != null){
            user.addPicture(pic);
            session.beginTransaction();
@@ -70,7 +74,7 @@ public class Controller {
         else if(pic == null){
             throw new Exception("Nem adtĂˇl meg kĂ©pet");
         }
-        
+        session.getTransaction().commit();
         session.close();
     }
     

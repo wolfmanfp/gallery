@@ -6,9 +6,13 @@
 package hu.ptemik.gallery;
 
 import hu.ptemik.gallery.control.Encrypt;
+import hu.ptemik.gallery.dto.Picture;
 import hu.ptemik.gallery.dto.User;
 import hu.ptemik.gallery.hibernate.HibernateUtil;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -53,6 +57,51 @@ public class TestForReal {
             
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    @Test
+    public void createPicturesTest(){
+       try {
+            session.getTransaction().begin();
+            User user = new User();
+            user.setFirstName("Doge");
+            user.setLastName("d");
+            user.setPasswordHash(Encrypt.encrypt("asdasdasd"));
+            user.setUserName("doge");
+            user.setEmail("doge@posta.hu");
+            
+            Picture pic = new Picture();
+            pic.setTitle("Cool'n'The Gang");
+            pic.setDescription("Such picture");
+            pic.setUser(user);
+            pic.setUrl("www.doge.com/swagie");
+            
+            Picture pic2 = new Picture();
+            pic2.setTitle("Cool'n'The Gang2");
+            pic2.setDescription("Such picture2");
+            pic2.setUser(user);
+            pic2.setUrl("www.doge.com/swagie2");
+            
+            user.addPicture(pic);
+            
+            session.save(user);
+            session.save(pic);
+            session.save(pic2);
+            session.getTransaction().commit();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
+    
+    @Test
+    public void selects(){
+        List<Picture> pictures = new ArrayList<>();
+        Query query = session.createQuery("from Picture");
+        pictures =  query.list();
+        for (Picture picture : pictures) {
+            System.out.println(picture.toString());
         }
     }
     
