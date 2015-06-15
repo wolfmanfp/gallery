@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.ptemik.gallery.controll;
+package hu.ptemik.gallery.control;
 
 /**
  *
  * @author János
  */
-public class Controller {
+public class Controler {
      
 }
