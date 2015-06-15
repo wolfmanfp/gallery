@@ -19,7 +19,7 @@
       Change back to MySql when done
        jdbc:mysql://localhost:3306/test
        -->
-       jdbc:derby:gallery;create=true
+       jdbc:derby:galleryDB;create=true
    </property>
    
    <property name="hibernate.connection.username">
