@@ -24,22 +24,23 @@ import org.junit.Ignore;
  * @author János
  */
 public class TestForReal {
-    private SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
     private Session session;
     
     @BeforeClass
     public static void setUpClass() {
+        sessionFactory = HibernateUtil.getSessionFactory();
     }
     
     @Before
     public void setUp() {
-        sessionFactory = HibernateUtil.getSessionFactory();
         session = sessionFactory.openSession();
     }
     
     @Test    
     public void createUserTest() {
         try {
+            session.getTransaction().begin();
             User user = new User();
             user.setFirstName("Péter");
             user.setLastName("Farkas");
@@ -48,6 +49,8 @@ public class TestForReal {
             user.setEmail("asd@posta.hu");
             
             session.save(user);
+            session.getTransaction().commit();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,10 +59,11 @@ public class TestForReal {
     @After
     public void tearDown() {
         session.close();
-        sessionFactory.close();
+        
     }
     
     @AfterClass
     public static void tearDownClass() {
+        sessionFactory.close();
     }
 }
