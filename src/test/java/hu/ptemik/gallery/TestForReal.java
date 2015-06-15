@@ -19,18 +19,19 @@ import static org.junit.Assert.*;
  * @author János
  */
 public class TestForReal {
-    @Test    
+      
     public void TestForReal() {
-        try {
-            HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        
         
     }
     
     @BeforeClass
     public static void setUpClass() {
+        try {
+            HibernateUtil.getSessionFactory().openSession().beginTransaction();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     @AfterClass
