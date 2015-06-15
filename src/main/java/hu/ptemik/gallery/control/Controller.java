@@ -18,11 +18,11 @@ import org.hibernate.Session;
 
 /**
  *
- * @author JĂˇnos
+ * @author János
  */
 public class Controller {
 
-    public List<User> queryUsers() {
+    public static List<User> queryUsers() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query getUsers = session.createQuery("from User");
         List<User> users = getUsers.list();
@@ -31,22 +31,21 @@ public class Controller {
         return users;
     }
     
-    public void submitLogin(String loginName, char[] pw) {
-        String password = Encrypt.encrypt(Arrays.toString(pw));
+    public static User submitLogin(String userName, String pw) {
+        String password = Encrypt.encrypt(pw);
         
         List<User> users = queryUsers();
 
         for (User user : users) {
-            if(loginName.equals(user.getUserName()) && password.equals(user.getPasswordHash())){
-                
+            if(userName.equals(user.getUserName()) && password.equals(user.getPasswordHash())){
+                return user;
             }
-            else{ 
-            }
+            
         }
-
+        return null;
     }
     
-    public void newUser(User user) throws SqlException{
+    public static void newUser(User user) throws SqlException{
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         
@@ -58,27 +57,28 @@ public class Controller {
         session.close();
     }
     
-    public void newPicture(Picture pic, User user) throws Exception{
+    public static void newPicture(Picture pic, User user) throws Exception{
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         if (user !=null && pic != null){
            user.addPicture(pic);
+           pic.setUser(user);
            session.beginTransaction();
            
-           session.persist(user);
+//           session.persist(user);
            session.persist(pic);
         }
         else if(user==null){
-            throw new Exception("Nem adtĂˇl meg felhasznĂˇlĂłt");
+            throw new Exception("Nem adtál meg felhasználót");
         }
         else if(pic == null){
-            throw new Exception("Nem adtĂˇl meg kĂ©pet");
+            throw new Exception("Nem adtál meg képet");
         }
         session.getTransaction().commit();
         session.close();
     }
     
-    public List<Picture> queryPictures(User user){
+    public static List<Picture> queryPictures(User user){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         Query query = session.createQuery("from Picture where ");
@@ -88,11 +88,11 @@ public class Controller {
         return pictures;
     }
     
-    public List<Picture> queryPictures(){
+    public static List<Picture> queryPictures(){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         Query query = session.createQuery("from Picture");
-        List pictures =  query.list();
+        List pictures = query.list();
         
         session.close();
         return pictures;
