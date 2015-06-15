@@ -8,3 +8,5 @@ dependency-reduced-pom.xml
 buildNumber.properties
 nb-configuration.xml
 src/main/webapp/style.css.map
+gallery/
+derby.log
