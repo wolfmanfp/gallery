@@ -6,10 +6,15 @@
 package hu.ptemik.gallery.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -35,6 +40,12 @@ public class User implements Serializable {
     @Column (name  = "LAST_NAME")
     private String lastName;
 
+    @OneToMany
+    @JoinTable(name="USER_VEHICLE", joinColumns = @JoinColumn(name="USER_ID"),
+            inverseJoinColumns = @JoinColumn(name="VEHICLE_ID"))
+    
+    private Collection<String> pictures = new ArrayList<>();
+    
     public User() {
     }
 
