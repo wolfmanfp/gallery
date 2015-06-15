@@ -5,6 +5,7 @@
  */
 package hu.ptemik.gallery;
 
+import hu.ptemik.gallery.control.Controller;
 import hu.ptemik.gallery.control.Encrypt;
 import hu.ptemik.gallery.dto.Picture;
 import hu.ptemik.gallery.dto.User;
@@ -44,7 +45,7 @@ public class TestForReal {
     @Test    
     public void createUserTest() {
         try {
-            session.getTransaction().begin();
+//            session.getTransaction().begin();
             User user = new User();
             user.setFirstName("Péter");
             user.setLastName("Farkas");
@@ -52,8 +53,10 @@ public class TestForReal {
             user.setUserName("wolfman");
             user.setEmail("asd@posta.hu");
             
-            session.save(user);
-            session.getTransaction().commit();
+            Controller.newUser(user);
+            
+//            session.save(user);
+//            session.getTransaction().commit();
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,10 +99,21 @@ public class TestForReal {
     }
     
     @Test
-    public void selects(){
+    public void selectsPicturesTest1(){
         List<Picture> pictures = new ArrayList<>();
         Query query = session.createQuery("from Picture");
         pictures =  query.list();
+        System.out.println("List of pictures ("+pictures.size()+")");
+        for (Picture picture : pictures) {
+            System.out.println(picture.toString());
+        }
+    }
+    
+    @Test
+    public void selectPicturesTest2(){
+        List<Picture> pictures = Controller.queryPictures(2);
+        
+        System.out.println("List of pictures for userId = 2("+pictures.size()+")");
         for (Picture picture : pictures) {
             System.out.println(picture.toString());
         }

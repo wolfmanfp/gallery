@@ -78,10 +78,11 @@ public class Controller {
         session.close();
     }
     
-    public static List<Picture> queryPictures(User user){
+    public static List<Picture> queryPictures(int userId){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
-        Query query = session.createQuery("from Picture where ");
+        Query query = session.createQuery("from Picture p where p.USER_ID = :user");
+        query.setParameter("user", userId);
         List pictures =  query.list();
         
         session.close();

@@ -26,7 +26,7 @@ import javax.persistence.Table;
 public class User implements Serializable {
     @Id
     @GeneratedValue
-    @Column(name = "ID")
+    @Column(name = "USER_ID")
     private int id;
     
     @Column (name ="USERNAME" , unique = true)
@@ -40,9 +40,9 @@ public class User implements Serializable {
     @Column (name  = "LAST_NAME")
     private String lastName;
 
-    @OneToMany
-    @JoinTable(name="USER_PICTURES", joinColumns = @JoinColumn(name="ID"),
-            inverseJoinColumns = @JoinColumn(name="PICTURE_ID"))
+    @OneToMany (mappedBy = "user")
+//    @JoinTable(name="USER_PICTURES", joinColumns = @JoinColumn(name="ID"),
+//            inverseJoinColumns = @JoinColumn(name="PICTURE_ID"))
     
     private Collection<Picture> pictures = new ArrayList<>();
     
