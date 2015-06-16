@@ -19,6 +19,10 @@ import org.hibernate.Session;
  */
 public class Controller {
 
+    /**
+     * Returns a list of all the User objects in the database.
+     * @return 
+     */
     public static List<User> queryUsers() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query getUsers = session.createQuery("from User");
@@ -27,7 +31,14 @@ public class Controller {
         session.close();
         return users;
     }
-    
+    /**
+     * Checks if the userName and password given in its parameters is or is not a valid userName-password combination. 
+     * If it there is a match it returns the User object.
+     * If not it returns null.
+     * @param userName String.
+     * @param pw String
+     * @return 
+     */
     public static User submitLogin(String userName, String pw) {
         String password = Encrypt.encrypt(pw);
         
@@ -42,6 +53,11 @@ public class Controller {
         return null;
     }
     
+    /**
+     * Registers a new User. 
+     * @param user Needs a User object parameter.
+     * @throws SQLException 
+     */
     public static void newUser(User user) throws SQLException{
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -53,6 +69,12 @@ public class Controller {
         session.close();
     }
     
+    /**
+     * Registers a new Picture record.
+     * @param pic The url of the picture.
+     * @param user The uploader.
+     * @throws Exception 
+     */
     public static void newPicture(Picture pic, User user) throws Exception{
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -74,17 +96,52 @@ public class Controller {
         session.close();
     }
     
-    public static List<Picture> queryPictures(int userId){
+    /**
+     * Returns a list of Picture objects according to the cryteria User object.
+     * @param user 
+     * @return 
+     */
+    public static List<Picture> queryPictures(User user){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
-        Query query = session.createQuery("from Picture p where p.USER_ID = :user");
-        query.setParameter("user", userId);
+        Query query = session.createQuery("from Picture where user = :user");
+        query.setParameter("user", user);
         List<Picture> pictures =  query.list();
         
         session.close();
         return pictures;
     }
     
+    public static List<Picture> queryPictures(int userId){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createSQLQuery("SELECT * FROM users WHERE USER_ID = :userId ");
+        query.setParameter("userId", userId);
+        List<Picture> pictures =  query.list();
+        
+        session.close();
+        return pictures;
+    }
+    /**
+     * Finds a User according to userId
+     * @param userId
+     * @return Returns the User Object.
+     */
+    public static User findUser(int userId){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        User user;
+        Query query = session.createSQLQuery("from User where id = :id");
+        query.setParameter("id", userId);
+        user =  (User) query.list().get(0);
+        
+        session.close();
+        return user;
+    }
+    
+    /**
+     * Returns a full list of Picture objects.
+     * @return 
+     */
     public static List<Picture> queryPictures(){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
