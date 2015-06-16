@@ -37,9 +37,10 @@ public class RegistrationServlet extends HttpServlet {
         
         boolean missingDataError = firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() ||
                 email.isEmpty() || password.isEmpty();
-        boolean usernameError = false;
+        boolean usernameError = Controller.isExistingUser(username);
+        boolean emailError = Controller.isExistingEmail(email);
         boolean passwordError = !password2.equals(password);
-        boolean error = missingDataError || usernameError || passwordError;
+        boolean error = missingDataError || usernameError || emailError || passwordError;
 
         if (error) {
             String errorMessage="";
@@ -48,6 +49,9 @@ public class RegistrationServlet extends HttpServlet {
             }
             else if(usernameError) {
                 errorMessage = "Már létezik ilyen nevű felhasználó!";
+            }
+            else if(emailError) {
+                errorMessage = "Már regisztráltak erre az e-mail címre!";
             }
             else if(passwordError) {
                 errorMessage = "A megadott jelszavak nem egyeznek!";
@@ -61,7 +65,7 @@ public class RegistrationServlet extends HttpServlet {
             user.setLastName(lastName);
             user.setUserName(username);
             user.setEmail(email);
-            user.setPasswordHash(Encrypt.encrypt(request.getParameter("password")));
+            user.setPasswordHash(password);
 
             try {
                 Controller.newUser(user);

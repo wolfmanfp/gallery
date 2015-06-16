@@ -82,8 +82,6 @@ public class Controller {
            user.addPicture(pic);
            pic.setUser(user);
            session.beginTransaction();
-           
-//           session.persist(user);
            session.persist(pic);
            session.persist(user);
         }
@@ -131,7 +129,7 @@ public class Controller {
     public static User findUser(int userId){
         Session session = HibernateUtil.getSessionFactory().openSession();
         User user;
-        Query query = session.createSQLQuery("from User where id = :id");
+        Query query = session.createQuery("from User where id = :id");
         query.setParameter("id", userId);
         user =  (User) query.list().get(0);
         
@@ -147,11 +145,10 @@ public class Controller {
     public static boolean isExistingUser(String userName){
         Session session = HibernateUtil.getSessionFactory().openSession();
         User user;
-        Query query = session.createSQLQuery("from User where userName = :userName");
+        Query query = session.createQuery("from User where userName = :userName");
         query.setParameter("userName", userName);
-        user =  (User) query.list().get(0);
         
-        if (user !=null){
+        if (!query.list().isEmpty()){
             session.close();
             return true;
         }
@@ -169,11 +166,10 @@ public class Controller {
     public static boolean isExistingEmail(String email){
         Session session = HibernateUtil.getSessionFactory().openSession();
         User user;
-        Query query = session.createSQLQuery("from User where email = :email");
+        Query query = session.createQuery("from User where email = :email");
         query.setParameter("email", email);
-        user = (User) query.list().get(0);
         
-        if (user !=null){
+        if (!query.list().isEmpty()){
             session.close();
             return true;
         }

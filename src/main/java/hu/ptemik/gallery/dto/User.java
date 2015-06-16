@@ -5,6 +5,7 @@
  */
 package hu.ptemik.gallery.dto;
 
+import hu.ptemik.gallery.control.Encrypt;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -96,7 +97,7 @@ public class User implements Serializable {
     }
 
     public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+        this.passwordHash = Encrypt.encrypt(passwordHash);
     }
 
     public void setEmail(String email) {
