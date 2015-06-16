@@ -3,42 +3,16 @@
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-   <session-factory>
-   <property name="hibernate.dialect">
-      org.hibernate.dialect.DerbyDialect
-   </property>
-   <property name="hibernate.connection.driver_class">
-      <!--com.mysql.jdbc.Driver-->
-      org.apache.derby.jdbc.EmbeddedDriver
-   </property>
-
-   
-   <property name="hibernate.connection.url">
-      <!--
-      Derby just for testing
-      Change back to MySql when done
-       jdbc:mysql://localhost:3306/test
-       -->
-       jdbc:derby:galleryDB;create=true
-   </property>
-   
-   <property name="hibernate.connection.username">
-      root
-   </property>
-   
-   <property name="hibernate.connection.password">
-       root
-   </property>
-   
-   <property name="hbm2ddl.auto">
-       create
-   </property>
-
-<property name="show_sql">true</property>
-
-   <!-- Annotated Entity class -->
-   <mapping class="hu.ptemik.gallery.dto.User"/>
-   <mapping class="hu.ptemik.gallery.dto.Picture"/>
-
-</session-factory>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gallerydb?createDatabaseIfNotExist=true</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="show_sql">true</property>
+        <!-- Annotated Entity class -->
+        <mapping class="hu.ptemik.gallery.dto.User"/>
+        <mapping class="hu.ptemik.gallery.dto.Picture"/>
+    </session-factory>
 </hibernate-configuration>

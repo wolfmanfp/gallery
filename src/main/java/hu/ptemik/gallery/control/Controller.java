@@ -8,11 +8,8 @@ package hu.ptemik.gallery.control;
 import hu.ptemik.gallery.dto.Picture;
 import hu.ptemik.gallery.dto.User;
 import hu.ptemik.gallery.hibernate.HibernateUtil;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import javax.swing.JOptionPane;
-import org.apache.derby.client.am.SqlException;
+import java.sql.SQLException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -45,15 +42,14 @@ public class Controller {
         return null;
     }
     
-    public static void newUser(User user) throws SqlException{
+    public static void newUser(User user) throws SQLException{
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
         
         if (user !=null){
-           session.beginTransaction();
-           session.persist(user);
+           session.getTransaction().begin();
+           session.save(user);
+           session.getTransaction().commit();
         }
-        session.getTransaction().commit();
         session.close();
     }
     
@@ -83,7 +79,7 @@ public class Controller {
         
         Query query = session.createQuery("from Picture p where p.USER_ID = :user");
         query.setParameter("user", userId);
-        List pictures =  query.list();
+        List<Picture> pictures =  query.list();
         
         session.close();
         return pictures;
