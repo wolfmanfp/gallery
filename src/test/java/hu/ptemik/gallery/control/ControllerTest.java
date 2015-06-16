@@ -52,6 +52,32 @@ public class ControllerTest {
     @Before
     public void setUp() {
         session = sessionFactory.openSession();
+        user1.setFirstName("Péter");
+        user1.setLastName("Farkas");
+        user1.setPasswordHash(Encrypt.encrypt("lolololol"));
+        user1.setUserName("wolfman");
+        user1.setEmail("Y_U_Dudis@spodermun.cum");
+
+        user2.setFirstName("Péter");
+        user2.setLastName("János");
+        user2.setPasswordHash(Encrypt.encrypt("doge"));
+        user2.setUserName("jancsiij");
+        user2.setEmail("jancsiij@gmail.com");
+        
+        pic1.setTitle("Cool'n'The Gang");
+        pic1.setDescription("Such picture");
+        pic1.setUser(user1);
+        pic1.setUrl("www.doge.com/swagie");
+
+        pic2.setTitle("Cool'n'The Gang2");
+        pic2.setDescription("Such picture2");
+        pic2.setUser(user1);
+        pic2.setUrl("www.doge.com/swagie2");
+        
+        pic2.setTitle("#1 Dad");
+        pic2.setDescription("#GOT,#Fire,#LordOfLight");
+        pic2.setUser(user2);
+        pic2.setUrl("http://img-9gag-fun.9cache.com/photo/aPGwYQg_460s.jpg");
     }
 
     @After
@@ -67,24 +93,14 @@ public class ControllerTest {
      */
     @Test
     public void testNewUser() throws Exception {
+        int numberOfUsers = Controller.queryUsers().size();
+        
         System.out.println("newUser");
-        user1.setFirstName("Péter");
-        user1.setLastName("Farkas");
-        user1.setPasswordHash(Encrypt.encrypt("lolololol"));
-        user1.setUserName("wolfman");
-        user1.setEmail("Y_U_Dudis@spodermun.cum");
-
-        user2.setFirstName("Péter");
-        user2.setLastName("János");
-        user2.setPasswordHash(Encrypt.encrypt("doge"));
-        user2.setUserName("jancsiij");
-        user2.setEmail("jancsiij@gmail.com");
 
         Controller.newUser(user1);
         Controller.newUser(user2);
 
-        assertTrue(Controller.queryUsers().size()==2);
-       
+        assertTrue(Controller.queryUsers().size()==numberOfUsers + 2);
     }
 
     /**
@@ -93,27 +109,13 @@ public class ControllerTest {
     @Test
     public void testNewPicture() throws Exception {
         System.out.println("newPicture");
-        pic1.setTitle("Cool'n'The Gang");
-        pic1.setDescription("Such picture");
-        pic1.setUser(user1);
-        pic1.setUrl("www.doge.com/swagie");
-
-        pic2.setTitle("Cool'n'The Gang2");
-        pic2.setDescription("Such picture2");
-        pic2.setUser(user1);
-        pic2.setUrl("www.doge.com/swagie2");
+        int numberOfPictures = Controller.queryPictures().size();
         
-        pic2.setTitle("#1 Dad");
-        pic2.setDescription("#GOT,#Fire,#LordOfLight");
-        pic2.setUser(user2);
-        pic2.setUrl("http://img-9gag-fun.9cache.com/photo/aPGwYQg_460s.jpg");
-
         Controller.newPicture(pic1, user1);
         Controller.newPicture(pic2, user1);
         Controller.newPicture(pic3, user2);
 
-        assertTrue(Controller.queryPictures().size() == 3);
-        
+        assertTrue(Controller.queryPictures().size() == numberOfPictures+3);
     }
     
     @Test

@@ -26,7 +26,7 @@ public class Picture implements Serializable {
     @GeneratedValue
     private int pictureId;
     @ManyToOne
-    @JoinColumn(name="USER_ID", nullable = false)
+    @JoinColumn(name="USER_ID")
     private User user;
     @Column(name="TITLE", nullable = false, length = 25)
     private String title;
