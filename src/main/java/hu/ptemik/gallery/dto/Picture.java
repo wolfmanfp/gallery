@@ -26,13 +26,13 @@ public class Picture implements Serializable {
     @GeneratedValue
     private int pictureId;
     @ManyToOne
-    @JoinColumn(name="USER_ID")
+    @JoinColumn(name="USER_ID", nullable = false)
     private User user;
-    @Column(name="TITLE")
+    @Column(name="TITLE", nullable = false, length = 25)
     private String title;
-    @Column(name="DESCRIPTION")
+    @Column(name="DESCRIPTION", length = 100)
     private String description;
-    @Column(name="URL")
+    @Column(name="URL", nullable = false, unique = true)
     private String url;
 
     public Picture() {

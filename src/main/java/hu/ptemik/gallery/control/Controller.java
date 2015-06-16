@@ -85,6 +85,7 @@ public class Controller {
            
 //           session.persist(user);
            session.persist(pic);
+           session.persist(user);
         }
         else if(user==null){
             throw new Exception("Nem adtál meg felhasználót");
@@ -136,6 +137,50 @@ public class Controller {
         
         session.close();
         return user;
+    }
+    
+    /**
+     * Finds out if a UserName already exist or not.
+     * @param userName String
+     * @return Returns true if exists, false if not.
+     */
+    public static boolean isExistingUser(String userName){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        User user;
+        Query query = session.createSQLQuery("from User where userName = :userName");
+        query.setParameter("userName", userName);
+        user =  (User) query.list().get(0);
+        
+        if (user !=null){
+            session.close();
+            return true;
+        }
+        else{
+            session.close();
+            return false;
+        }
+    }
+    
+    /**
+     * Finds out if a Email already exist or not.
+     * @param email String
+     * @return Returns true if exists, false if not.
+     */
+    public static boolean isExistingEmail(String email){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        User user;
+        Query query = session.createSQLQuery("from User where email = :email");
+        query.setParameter("email", email);
+        user = (User) query.list().get(0);
+        
+        if (user !=null){
+            session.close();
+            return true;
+        }
+        else{
+            session.close();
+            return false;
+        }
     }
     
     /**

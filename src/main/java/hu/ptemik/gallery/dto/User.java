@@ -31,15 +31,15 @@ public class User implements Serializable {
     @Column(name = "USER_ID")
     private int id;
     
-    @Column (name ="USERNAME" , unique = true)
+    @Column (name ="USERNAME" , unique = true, nullable = false, length = 15)
     private String userName;
-    @Column (name  = "PASSWORD")
+    @Column (name  = "PASSWORD", nullable = false, length = 50)
     private String passwordHash;
-    @Column (name  = "EMAIL", unique = true)
+    @Column (name  = "EMAIL", unique = true, nullable = false, length = 50)
     private String email;
-    @Column (name  = "FIRST_NAME")
+    @Column (name  = "FIRST_NAME", nullable = false, length = 25)
     private String firstName;
-    @Column (name  = "LAST_NAME")
+    @Column (name  = "LAST_NAME", nullable = false, length = 25)
     private String lastName;
 
     @OneToMany (mappedBy = "user", fetch = FetchType.EAGER)
@@ -51,7 +51,6 @@ public class User implements Serializable {
     public User() {
     }
 
-    
     public User(int id, String userName, String passwordHash, String email, String firstName, String lastName) {
         this.id = id;
         this.userName = userName;
@@ -61,7 +60,6 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    
     //Getters
     public int getId() {
         return id;
