@@ -1,4 +1,6 @@
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@page import="hu.ptemik.gallery.dto.User" %>
 <html>
     <head>
         <title>Regisztráció</title>
@@ -21,24 +23,37 @@
         </header>
         <div class="jumbotron jumbotron-form">
             <div class="container">
-                <form class="gallery-form" role="form" action="/RegistrationServlet" method="post">
+                <%
+                    String firstName = request.getParameter("firstName");
+                    String lastName = request.getParameter("lastName");
+                    String username = request.getParameter("username");
+                    String email = request.getParameter("email");
+                    
+                    String errorMessage = (String) request.getAttribute("errorMessage");
+                    if (errorMessage != null) {
+                        out.println("<div class=\"alert alert-danger\" role=\"alert\">"
+                                + "<i class=\"fa fa-exclamation-triangle\"></i> " + errorMessage
+                                + " </div>");
+                    }
+                %>
+                <form class="gallery-form" role="form" action="RegistrationServlet" method="post">
                     <fieldset>
                         <legend>Regisztráció</legend>
                         <div class="form-group col-md-6">
-                            <label class="control-label" for="firstName">Vezetéknév</label> 
-                            <input class="form-control input-md" name="firstName" type="text">
+                            <label class="control-label" for="lastName">Vezetéknév</label> 
+                            <input class="form-control input-md" value="<% if(lastName!=null) out.println(lastName); %>" name="lastName" type="text">
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="control-label" for="lastName">Keresztnév</label> 
-                            <input class="form-control input-md" name="lastName" type="text">
+                            <label class="control-label" for="firstName">Keresztnév</label> 
+                            <input class="form-control input-md" value="<% if(firstName!=null) out.println(firstName); %>" name="firstName" type="text">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="email">E-mail cím:</label> 
-                            <input class="form-control input-md" name="email" type="email">
+                            <input class="form-control input-md" value="<% if(email!=null) out.println(email); %>" name="email" type="email">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="username">Felhasználónév:</label> 
-                            <input class="form-control input-md" name="username" type="text">
+                            <input class="form-control input-md" value="<% if(username!=null) out.println(username); %>" name="username" type="text">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="password">Jelszó:</label> 

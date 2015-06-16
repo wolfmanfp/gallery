@@ -16,8 +16,8 @@
                     <img class="navbar-brand" src="logo.png" alt="Gallery">
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="registration.html"><i class="fa fa-user"></i> Regisztráció</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-in"></i> Bejelentkezés</a></li>
+                    <li><a href="registration.jsp"><i class="fa fa-user"></i> Regisztráció</a></li>
+                    <li><a href="login.jsp"><i class="fa fa-sign-in"></i> Bejelentkezés</a></li>
                     <li><a href="#"><i class="fa fa-picture-o"></i> user</a></li>
                     <li><a href="#"><i class="fa fa-cloud-upload"></i> Feltöltés</a></li>
                     <li><a href="#"><i class="fa fa-users"></i> Felhasználók</a></li>
@@ -27,7 +27,7 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>Oszd meg legszebb képeidet</h1>
-                <p><a href="registration.html" class="btn btn-lg btn-primary">Regisztráció</a></p>
+                <p><a href="registration.jsp" class="btn btn-lg btn-primary">Regisztráció</a></p>
             </div>
         </div>
         <div class="jumbotron">
@@ -39,7 +39,7 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
-                <p><a href="login.html" class="btn btn-lg btn-primary">Latinul van!</a></p>
+                <p><a href="login.jsp" class="btn btn-lg btn-primary">Latinul van!</a></p>
             </div>
         </div>
         <footer class="navbar-static-bottom">

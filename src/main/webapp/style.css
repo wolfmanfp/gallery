@@ -3,7 +3,9 @@ h1,
 li,
 p,
 label,
-legend {
+legend,
+input,
+div {
   font-family: 'Roboto', sans-serif;
 }
 .navbar-static-top {
@@ -21,7 +23,7 @@ legend {
   color: #eeeeee;
 }
 .navbar-static-top .navbar-right li a:visited {
-  color: #bbbbbb;
+  color: #dddddd;
 }
 .navbar-static-bottom {
   background-color: #286090;
@@ -36,7 +38,7 @@ legend {
   color: #eeeeee;
 }
 .navbar-static-bottom a:visited {
-  color: #bbbbbb;
+  color: #dddddd;
 }
 .jumbotron {
   height: 500px;
@@ -75,6 +77,14 @@ legend {
   border-radius: 0px;
 }
 .jumbotron-form {
-  height: 550px;
+  height: 600px;
+}
+.alert-danger {
+  width: 720px;
+  margin: 0 auto 20px;
+  border-radius: 0px;
+  background-color: #A94442;
+  border-color: #A94442;
+  color: white;
 }
 /*# sourceMappingURL=style.css.map */

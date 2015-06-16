@@ -5,8 +5,13 @@
  */
 package hu.ptemik.gallery.servlets;
 
+import hu.ptemik.gallery.control.Controller;
+import hu.ptemik.gallery.control.Encrypt;
+import hu.ptemik.gallery.dto.User;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,72 +25,50 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "RegistrationServlet", urlPatterns = {"/RegistrationServlet"})
 public class RegistrationServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Servlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Servlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {
-            out.close();
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String password2 = request.getParameter("password2");
+        
+        boolean missingDataError = firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() ||
+                email.isEmpty() || password.isEmpty();
+        boolean usernameError = false;
+        boolean passwordError = !password2.equals(password);
+        boolean error = missingDataError || usernameError || passwordError;
+
+        if (error) {
+            String errorMessage="";
+            if(missingDataError) {
+                errorMessage = "Hiányzó adatok!";
+            }
+            else if(usernameError) {
+                errorMessage = "Már létezik ilyen nevű felhasználó!";
+            }
+            else if(passwordError) {
+                errorMessage = "A megadott jelszavak nem egyeznek!";
+            }
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("registration.jsp").forward(request, response);
+        }
+        else {
+            User user = new User();
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setUserName(username);
+            user.setEmail(email);
+            user.setPasswordHash(Encrypt.encrypt(request.getParameter("password")));
+
+            try {
+                Controller.newUser(user);
+            } catch (SQLException ex) {
+                Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            response.sendRedirect("index.jsp");
+        } 
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

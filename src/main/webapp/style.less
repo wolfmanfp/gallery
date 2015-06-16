@@ -3,7 +3,7 @@
 @hatterszin: #286090;
 @tortfeher: #ddd;
 
-h1, li, p, label, legend {
+h1, li, p, label, legend, input, div {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -21,7 +21,7 @@ h1, li, p, label, legend {
             color: @tortfeher + #111;
         }
         &:visited {
-            color: @tortfeher - #222;
+            color: @tortfeher;
         }
     }
 }
@@ -78,5 +78,14 @@ h1, li, p, label, legend {
 }
 
 .jumbotron-form {
-    height: 550px;
+    height: 600px;
+}
+
+.alert-danger {
+    width: 720px;
+    margin: 0 auto 20px;
+    border-radius: 0px;
+    background-color: #A94442;
+    border-color: #A94442;
+    color: white;
 }
