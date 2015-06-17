@@ -8,10 +8,6 @@ package hu.ptemik.gallery.control;
 import hu.ptemik.gallery.dto.Picture;
 import hu.ptemik.gallery.dto.User;
 import hu.ptemik.gallery.hibernate.HibernateUtil;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Random;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.Session;
@@ -22,7 +18,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -56,13 +51,13 @@ public class ControllerTest {
     public void setUp() {
         user1.setFirstName("Péter");
         user1.setLastName("Farkas");
-        user1.setPasswordHash(Encrypt.encrypt("lolololol"));
-        user1.setUserName("wolfman");
-        user1.setEmail("Y_U_Dudis@spodermun.cum");
+        user1.setPasswordHash("1234");
+        user1.setUserName("wolfmanfp");
+        user1.setEmail("farkas.peter1995@gmail.com");
 
-        user2.setFirstName("Péter");
-        user2.setLastName("János");
-        user2.setPasswordHash(Encrypt.encrypt("doge"));
+        user2.setFirstName("János");
+        user2.setLastName("Farkas");
+        user2.setPasswordHash("doge");
         user2.setUserName("jancsiij");
         user2.setEmail("jancsiij@gmail.com");
         
@@ -83,7 +78,6 @@ public class ControllerTest {
         Controller.newPicture(pic1, user1);
         Controller.newPicture(pic2, user1);
         Controller.newPicture(pic3, user2);
-        
     }
 
     @After
@@ -91,9 +85,6 @@ public class ControllerTest {
         //session.close();
     }
 
-    /**
-     * Test of queryUsers method, of class Controller.
-     */
     /**
      * Test of newUser method, of class Controller.
      */
@@ -155,8 +146,6 @@ public class ControllerTest {
         Controller.deleteUser(localUser1);
     }
 
-    
-
     /**
      * Test of queryPictures method, of class Controller.
      */
@@ -193,7 +182,6 @@ public class ControllerTest {
     public void testQueryPictures_string() {
         System.out.println("queryPictures(String)");
         System.out.println("queryPictures(user)");
-        
         
         int rand = (int )(Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
@@ -235,8 +223,6 @@ public class ControllerTest {
         
     }
 
-    
-    
     /**
      * Test of queryPictures method, of class Controller.
      */

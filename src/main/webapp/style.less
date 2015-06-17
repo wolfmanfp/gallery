@@ -1,7 +1,13 @@
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
 @import url(http://fonts.googleapis.com/css?family=Roboto);
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
 
 @bgcolor: #286090;
 @textcolor: #eee;
+
+html, body {
+    height: 100%;
+}
 
 h1, li, p, label, legend, input, div {
     font-family: 'Roboto', sans-serif;
@@ -50,28 +56,14 @@ h1, li, p, label, legend, input, div {
 }
 
 .jumbotron {
-    height: 500px;
     background-size: cover;
     margin-bottom: 0px;
-    h1 {
-        padding-top: 100px;
-        color: @textcolor;
-    }
     p {
         padding-top: 20px;
     }
     .btn-primary {
         border-radius: 0px;
     }
-    &:nth-child(2) {
-        background: url('pictures/bg01.jpg') no-repeat;
-    }
-    &:nth-child(3){
-        background: url('pictures/bg02.jpg') no-repeat;
-    }
-    &:nth-child(4) {
-        background: url('pictures/bg03.jpg') no-repeat;
-    }    
 }
 
 .gallery-form {
@@ -86,8 +78,30 @@ h1, li, p, label, legend, input, div {
     }
 }
 
-.jumbotron-form {
-    height: 600px;
+.jumbotron-special {
+    min-height: 100%;
+    height: auto;
+}
+
+.jumbotron-plain {
+    background: @textcolor;
+    background-image: none;
+    color: white-@textcolor;
+}
+
+.jumbotron-index {
+    h1 {
+        color: @textcolor;
+    }
+    &:nth-child(2) {
+        background: url('pictures/bg01.jpg') no-repeat;
+    }
+    &:nth-child(3){
+        background: url('pictures/bg02.jpg') no-repeat;
+    }
+    &:nth-child(4) {
+        background: url('pictures/bg03.jpg') no-repeat;
+    }    
 }
 
 .alert-danger {
@@ -96,4 +110,10 @@ h1, li, p, label, legend, input, div {
 
 .alert-success {
     .alert(#3C763D);
+}
+
+.list-group-item {
+    &:first-child, &:last-child {
+        border-radius: 0px;
+    }
 }

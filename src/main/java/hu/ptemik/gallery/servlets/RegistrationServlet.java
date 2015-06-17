@@ -67,11 +67,7 @@ public class RegistrationServlet extends HttpServlet {
             user.setEmail(email);
             user.setPasswordHash(password);
 
-            try {
-                Controller.newUser(user);
-            } catch (SQLException ex) {
-                Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Controller.newUser(user);
             
             request.setAttribute("successMessage", "A regisztráció sikeres!");
             request.getRequestDispatcher("registration.jsp").forward(request, response);

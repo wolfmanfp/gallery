@@ -1,4 +1,10 @@
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
 @import url(http://fonts.googleapis.com/css?family=Roboto);
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+html,
+body {
+  height: 100%;
+}
 h1,
 li,
 p,
@@ -41,28 +47,14 @@ div {
   color: #eeeeee;
 }
 .jumbotron {
-  height: 500px;
   background-size: cover;
   margin-bottom: 0px;
-}
-.jumbotron h1 {
-  padding-top: 100px;
-  color: #eeeeee;
 }
 .jumbotron p {
   padding-top: 20px;
 }
 .jumbotron .btn-primary {
   border-radius: 0px;
-}
-.jumbotron:nth-child(2) {
-  background: url('pictures/bg01.jpg') no-repeat;
-}
-.jumbotron:nth-child(3) {
-  background: url('pictures/bg02.jpg') no-repeat;
-}
-.jumbotron:nth-child(4) {
-  background: url('pictures/bg03.jpg') no-repeat;
 }
 .gallery-form {
   width: 480px;
@@ -76,8 +68,26 @@ div {
 .gallery-form input {
   border-radius: 0px;
 }
-.jumbotron-form {
-  height: 600px;
+.jumbotron-special {
+  min-height: 100%;
+  height: auto;
+}
+.jumbotron-plain {
+  background: #eeeeee;
+  background-image: none;
+  color: white- #eeeeee;
+}
+.jumbotron-index h1 {
+  color: #eeeeee;
+}
+.jumbotron-index:nth-child(2) {
+  background: url('pictures/bg01.jpg') no-repeat;
+}
+.jumbotron-index:nth-child(3) {
+  background: url('pictures/bg02.jpg') no-repeat;
+}
+.jumbotron-index:nth-child(4) {
+  background: url('pictures/bg03.jpg') no-repeat;
 }
 .alert-danger {
   width: 720px;
@@ -94,5 +104,9 @@ div {
   background-color: #3c763d;
   border-color: #3c763d;
   color: #eeeeee;
+}
+.list-group-item:first-child,
+.list-group-item:last-child {
+  border-radius: 0px;
 }
 /*# sourceMappingURL=style.css.map */

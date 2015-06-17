@@ -6,22 +6,20 @@
         <title>Regisztráció</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="style.css" >
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
     </head>
     <body>
         <header class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header navbar-left">
-                    <img class="navbar-brand" src="logo.png" alt="Gallery">
+                    <a href="index.jsp"><img class="navbar-brand" src="logo.png" alt="Gallery"></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="index.jsp"><i class="fa fa-arrow-left"></i> Vissza</a></li>
                 </ul>
             </div>
         </header>
-        <div class="jumbotron jumbotron-form">
+        <div class="jumbotron jumbotron-special jumbotron-index">
             <div class="container">
                 <%
                     String firstName = request.getParameter("firstName");
