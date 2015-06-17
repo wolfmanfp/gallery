@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@page import="hu.ptemik.gallery.dto.User" %>
 <html>
     <head>
         <title>Bejelentkezés</title>
@@ -22,12 +23,21 @@
         </header>
         <div class="jumbotron jumbotron-form">
             <div class="container">
-                <form class="gallery-form" role="form" method="post">
+                <%
+                    String username = request.getParameter("username");
+                    String errorMessage = (String) request.getAttribute("errorMessage");
+                    if (errorMessage != null) {
+                        out.println("<div class=\"alert alert-danger\" role=\"alert\">"
+                                + "<i class=\"fa fa-exclamation-triangle\"></i> " + errorMessage
+                                + " </div>");
+                    }
+                %>
+                <form class="gallery-form" action="LoginServlet" role="form" method="post">
                     <fieldset>
                         <legend>Bejelentkezés</legend>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="username">Felhasználónév:</label> 
-                            <input class="form-control input-md" name="username" type="text">
+                            <input class="form-control input-md" value="<% if(username!=null) out.println(username); %>" name="username" type="text">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="password">Jelszó:</label> 

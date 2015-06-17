@@ -14,31 +14,31 @@ div {
   background-color: #286090;
 }
 .navbar-static-top p {
-  color: #dddddd;
-}
-.navbar-static-top .navbar-right li a {
-  color: #dddddd;
-}
-.navbar-static-top .navbar-right li a:hover {
   color: #eeeeee;
 }
+.navbar-static-top .navbar-right li a {
+  color: #eeeeee;
+}
+.navbar-static-top .navbar-right li a:hover {
+  color: whitesmoke;
+}
 .navbar-static-top .navbar-right li a:visited {
-  color: #dddddd;
+  color: #eeeeee;
 }
 .navbar-static-bottom {
   background-color: #286090;
 }
 .navbar-static-bottom p {
-  color: #dddddd;
-}
-.navbar-static-bottom a {
-  color: #dddddd;
-}
-.navbar-static-bottom a:hover {
   color: #eeeeee;
 }
+.navbar-static-bottom a {
+  color: #eeeeee;
+}
+.navbar-static-bottom a:hover {
+  color: whitesmoke;
+}
 .navbar-static-bottom a:visited {
-  color: #dddddd;
+  color: #eeeeee;
 }
 .jumbotron {
   height: 500px;
@@ -47,7 +47,7 @@ div {
 }
 .jumbotron h1 {
   padding-top: 100px;
-  color: white;
+  color: #eeeeee;
 }
 .jumbotron p {
   padding-top: 20px;
@@ -70,7 +70,7 @@ div {
 }
 .gallery-form label,
 .gallery-form legend {
-  color: #dddddd;
+  color: #eeeeee;
   font-weight: normal;
 }
 .gallery-form input {
@@ -83,8 +83,16 @@ div {
   width: 720px;
   margin: 0 auto 20px;
   border-radius: 0px;
-  background-color: #A94442;
-  border-color: #A94442;
-  color: white;
+  background-color: #a94442;
+  border-color: #a94442;
+  color: #eeeeee;
+}
+.alert-success {
+  width: 720px;
+  margin: 0 auto 20px;
+  border-radius: 0px;
+  background-color: #3c763d;
+  border-color: #3c763d;
+  color: #eeeeee;
 }
 /*# sourceMappingURL=style.css.map */

@@ -72,7 +72,9 @@ public class RegistrationServlet extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            response.sendRedirect("index.jsp");
+            
+            request.setAttribute("successMessage", "A regisztráció sikeres!");
+            request.getRequestDispatcher("registration.jsp").forward(request, response);
         } 
     }
 }

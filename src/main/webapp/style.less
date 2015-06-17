@@ -1,29 +1,38 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
-@hatterszin: #286090;
-@tortfeher: #ddd;
+@bgcolor: #286090;
+@textcolor: #eee;
 
 h1, li, p, label, legend, input, div {
     font-family: 'Roboto', sans-serif;
 }
 
 .navbar(){
-    background-color: @hatterszin;
+    background-color: @bgcolor;
     p {
-        color: @tortfeher;
+        color: @textcolor;
     }
 }
 
 .navbar-href() {
     a {
-        color: @tortfeher;
+        color: @textcolor;
         &:hover {
-            color: @tortfeher + #111;
+            color: whitesmoke;
         }
         &:visited {
-            color: @tortfeher;
+            color: @textcolor;
         }
     }
+}
+
+.alert(@color) {
+    width: 720px;
+    margin: 0 auto 20px;
+    border-radius: 0px;
+    background-color: @color;
+    border-color: @color;
+    color: @textcolor;
 }
 
 .navbar-static-top  {
@@ -46,7 +55,7 @@ h1, li, p, label, legend, input, div {
     margin-bottom: 0px;
     h1 {
         padding-top: 100px;
-        color: white;
+        color: @textcolor;
     }
     p {
         padding-top: 20px;
@@ -69,7 +78,7 @@ h1, li, p, label, legend, input, div {
     width: 480px;
     margin: 0 auto;
     label, legend {
-        color: @tortfeher;
+        color: @textcolor;
         font-weight: normal;
     }
     input {
@@ -82,10 +91,9 @@ h1, li, p, label, legend, input, div {
 }
 
 .alert-danger {
-    width: 720px;
-    margin: 0 auto 20px;
-    border-radius: 0px;
-    background-color: #A94442;
-    border-color: #A94442;
-    color: white;
+    .alert(#A94442);
+}
+
+.alert-success {
+    .alert(#3C763D);
 }

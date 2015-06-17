@@ -35,6 +35,13 @@
                                 + "<i class=\"fa fa-exclamation-triangle\"></i> " + errorMessage
                                 + " </div>");
                     }
+                    
+                    String successMessage = (String) request.getAttribute("successMessage");
+                    if (successMessage != null) {
+                        out.println("<div class=\"alert alert-success\" role=\"alert\">"
+                                + "<i class=\"fa fa-check\"></i> " + successMessage
+                                + " </div>");
+                    }
                 %>
                 <form class="gallery-form" role="form" action="RegistrationServlet" method="post">
                     <fieldset>

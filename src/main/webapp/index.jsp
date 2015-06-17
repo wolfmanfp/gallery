@@ -1,3 +1,4 @@
+<%@page import="hu.ptemik.gallery.dto.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,16 +11,25 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
     </head>
     <body>
+        <%
+            User user = (User)session.getAttribute("user");
+        %>
         <header class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header navbar-left">
                     <img class="navbar-brand" src="logo.png" alt="Gallery">
                 </div>
                 <ul class="nav navbar-nav navbar-right">
+                    <% 
+                        if (user==null) {
+                    %>
                     <li><a href="registration.jsp"><i class="fa fa-user"></i> Regisztráció</a></li>
                     <li><a href="login.jsp"><i class="fa fa-sign-in"></i> Bejelentkezés</a></li>
-                    <li><a href="#"><i class="fa fa-picture-o"></i> user</a></li>
+                    <% } else { %>
+                    <li><a href="#"><i class="fa fa-picture-o"></i> <%=user.getUserName()%></a></li>
                     <li><a href="#"><i class="fa fa-cloud-upload"></i> Feltöltés</a></li>
+                    <li><a href="LogoutServlet"><i class="fa fa-cloud-upload"></i> Kijelentkezés</a></li>
+                    <% } %>
                     <li><a href="#"><i class="fa fa-users"></i> Felhasználók</a></li>
                 </ul>
             </div>
