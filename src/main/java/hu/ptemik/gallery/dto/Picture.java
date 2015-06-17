@@ -28,20 +28,18 @@ public class Picture implements Serializable {
     @ManyToOne
     @JoinColumn(name="USER_ID")
     private User user;
-    @Column(name="TITLE", nullable = false, length = 25)
+    @Column(name="TITLE", length = 25)
     private String title;
     @Column(name="DESCRIPTION", length = 100)
     private String description;
-    @Column(name="URL", nullable = false, unique = true)
+    @Column(name="URL", unique = true)
     private String url;
 
     public Picture() {
     }
 
     
-    public Picture(int pictureId, User user, String title, String description, String url) {
-        this.pictureId = pictureId;
-        this.user = user;
+    public Picture(  String title, String description, String url) {
         this.title = title;
         this.description = description;
         this.url = url;

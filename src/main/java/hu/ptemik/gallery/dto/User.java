@@ -32,7 +32,7 @@ public class User implements Serializable {
     @Column(name = "USER_ID")
     private int id;
     
-    @Column (name ="USERNAME" , unique = true, nullable = false, length = 15)
+    @Column (name ="USERNAME" , unique = true, nullable = false, length = 50)
     private String userName;
     @Column (name  = "PASSWORD", nullable = false, length = 50)
     private String passwordHash;
@@ -52,8 +52,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(int id, String userName, String passwordHash, String email, String firstName, String lastName) {
-        this.id = id;
+    public User(String userName, String passwordHash, String email, String firstName, String lastName) {
         this.userName = userName;
         this.passwordHash = passwordHash;
         this.email = email;
@@ -118,7 +117,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", userName=" + userName + ", passwordHash=" + passwordHash + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", pictures=" + pictures + '}';
+        return "id=" + id + ", userName=" + userName ;
     }
     
     

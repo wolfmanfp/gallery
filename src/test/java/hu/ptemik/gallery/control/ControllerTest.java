@@ -10,6 +10,8 @@ import hu.ptemik.gallery.dto.User;
 import hu.ptemik.gallery.hibernate.HibernateUtil;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.Session;
@@ -20,6 +22,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -46,7 +49,7 @@ public class ControllerTest {
 
     @AfterClass
     public static void tearDownClass() {
-        sessionFactory.close();
+//        sessionFactory.close();
     }
 
     @Before
@@ -66,23 +69,24 @@ public class ControllerTest {
         
         pic1.setTitle("Cool'n'The Gang");
         pic1.setDescription("Such picture");
-        pic1.setUser(user1);
+        
         pic1.setUrl("www.doge.com/swagie");
 
         pic2.setTitle("Cool'n'The Gang2");
         pic2.setDescription("Such picture2");
-        pic2.setUser(user1);
+        
         pic2.setUrl("www.doge.com/swagie2");
         
-        pic2.setTitle("#1 Dad");
-        pic2.setDescription("#GOT,#Fire,#LordOfLight");
-        pic2.setUser(user2);
-        pic2.setUrl("http://img-9gag-fun.9cache.com/photo/aPGwYQg_460s.jpg");
+        pic3.setTitle("#1 Dad");
+        pic3.setDescription("#GOT,#Fire,#LordOfLight");
+        
+        pic3.setUrl("http://img-9gag-fun.9cache.com/photo/aPGwYQg_460s.jpg");
+        session.close();
     }
 
     @After
     public void tearDown() {
-        session.close();
+        //session.close();
     }
 
     /**
@@ -93,14 +97,13 @@ public class ControllerTest {
      */
     @Test
     public void testNewUser() throws Exception {
-        int numberOfUsers = Controller.queryUsers().size();
-        
+        int rand = (int )(Math.random() * 50 + 1);
         System.out.println("newUser");
-
-        Controller.newUser(user1);
-        Controller.newUser(user2);
-
-        assertTrue(Controller.queryUsers().size()==numberOfUsers + 2);
+        User localUser1 = new User("Test"+rand, "test","test"+rand+"@test.t", "Test", "Tamás");
+      
+        assertTrue(Controller.newUser(localUser1));
+        assertFalse(Controller.newUser(localUser1));
+        Controller.deleteUser(localUser1);
     }
 
     /**
@@ -108,24 +111,30 @@ public class ControllerTest {
      */
     @Test
     public void testNewPicture() throws Exception {
-        System.out.println("newPicture");
-        int numberOfPictures = Controller.queryPictures().size();
         
-        Controller.newPicture(pic1, user1);
-        Controller.newPicture(pic2, user1);
-        Controller.newPicture(pic3, user2);
-
-        assertTrue(Controller.queryPictures().size() == numberOfPictures+3);
+        int rand = (int )(Math.random() * 50 + 1);
+        System.out.println("newPicture");
+        User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
+        Picture pic = new Picture("Title", "Desc", "randomUrl"+rand+".com");
+        
+        Controller.newUser(localUser1);
+   
+        assertTrue(Controller.newPicture(pic, localUser1));
+        assertFalse(Controller.newPicture(pic, localUser1));
+        Controller.deletePicture(pic);
+        Controller.deleteUser(localUser1);
     }
     
     @Test
     public void testQueryUsers() {
+        int rand = (int )(Math.random() * 50 + 1);
         System.out.println("queryUsers");
-        List<User> expResult = null;
-        List<User> result = Controller.queryUsers();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int numberOfUsers = Controller.queryUsers().size();
+        User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
+        
+        Controller.newUser(localUser1);
+        assertTrue(Controller.queryUsers().size() == numberOfUsers + 1);
+        Controller.deleteUser(localUser1);
     }
 
     /**
@@ -134,13 +143,13 @@ public class ControllerTest {
     @Test
     public void testSubmitLogin() {
         System.out.println("submitLogin");
-        String userName = "";
-        String pw = "";
-        User expResult = null;
-        User result = Controller.submitLogin(userName, pw);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        int rand = (int )(Math.random() * 500 + 1);
+        User localUser1 = new User("Test"+rand, Encrypt.encrypt("test"),"test"+rand+"@test.t", "Test", "Tamás");
+        Controller.newUser(localUser1);
+        
+        assertNotNull(Controller.submitLogin(localUser1.getUserName(), "test"));
+        
     }
 
     
@@ -150,27 +159,48 @@ public class ControllerTest {
      */
     @Test
     public void testQueryPictures_User() {
-        System.out.println("queryPictures");
-        User user = null;
-        List<Picture> expResult = null;
-        List<Picture> result = Controller.queryPictures(user);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("queryPictures(user)");
+  
+        int rand = (int )(Math.random() * 50 + 1);
+        User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
+        Picture localPic1 = new Picture("Title", "Desc", "randomUrl"+rand+".com");
+        Picture localPic2 = new Picture("Title", "Desc", "randomUrl"+rand*2+".com");
+         
+        Controller.newUser(localUser1);
+        Controller.newPicture(localPic1, localUser1);
+        Controller.newPicture(localPic2, localUser1);
+        
+        assertTrue(Controller.queryPictures(localUser1).size() ==  2);
+        
+        Controller.deletePicture(localPic1);
+        Controller.deletePicture(localPic2);
+        Controller.deleteUser(localUser1);
     }
 
     /**
      * Test of queryPictures method, of class Controller.
      */
     @Test
-    public void testQueryPictures_int() {
-        System.out.println("queryPictures");
-        int userId = 0;
-        List<Picture> expResult = null;
-        List<Picture> result = Controller.queryPictures(userId);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testQueryPictures_string() {
+        System.out.println("queryPictures(String)");
+        System.out.println("queryPictures(user)");
+        
+        
+        int rand = (int )(Math.random() * 50 + 1);
+        User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
+        Picture localPic1 = new Picture("Title", "Desc", "randomUrl"+rand+".com");
+        Picture localPic2 = new Picture("Title", "Desc", "randomUrl"+rand*2+".com");
+         
+        Controller.newUser(localUser1);
+        Controller.newPicture(localPic1, localUser1);
+        Controller.newPicture(localPic2, localUser1);
+        
+        assertTrue(Controller.queryPictures(localUser1.getUserName()).size() ==  2);
+        
+        Controller.deletePicture(localPic1);
+        Controller.deletePicture(localPic2);
+        Controller.deleteUser(localUser1);
+        
     }
 
     /**
@@ -178,26 +208,38 @@ public class ControllerTest {
      */
     @Test
     public void testFindUser() {
-        System.out.println("findUser");
-        int userId = 0;
-        User expResult = null;
-        User result = Controller.findUser(userId);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("findUser(String)");
+        int numberOfpictures = Controller.queryPictures().size();
+        int rand = (int )(Math.random() * 50 + 1);
+        User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
+      
+        Controller.newUser(localUser1);
+        
+        assertEquals(Controller.findUser(localUser1.getUserName()).getUserName(), localUser1.getUserName());
+        
+        Controller.deleteUser(localUser1);
+        
     }
 
+    
+    
     /**
      * Test of queryPictures method, of class Controller.
      */
     @Test
     public void testQueryPictures_0args() {
-        System.out.println("queryPictures");
-        List<Picture> expResult = null;
-        List<Picture> result = Controller.queryPictures();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("queryPictures()");
+        int numberOfpictures = Controller.queryPictures().size();
+        int rand = (int )(Math.random() * 50 + 1);
+        User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
+        Picture pic = new Picture("Title", "Desc", "randomUrl"+rand+".com");
+        
+        Controller.newUser(localUser1);
+        Controller.newPicture(pic, localUser1);
+        
+        assertTrue(Controller.queryPictures().size() == numberOfpictures + 1);
+        Controller.deleteUser(localUser1);
+        Controller.deletePicture(pic);
     }
 
 }
