@@ -78,7 +78,8 @@ public class Controller {
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            session.close();
+            if(session.isOpen())
+                session.close();
             return false;
         }
 
@@ -109,9 +110,7 @@ public class Controller {
             }
         } catch (Exception ex) {
             if (session.isOpen()) 
-            {
                 session.close();
-            }
             System.out.println(ex.getMessage());
             return false;
         }
@@ -256,7 +255,8 @@ public class Controller {
             session.close();
             return true;
         } catch (Exception ex) {
-            session.close();
+            if(session.isOpen())
+                session.close();
             return false;
         }
     }
@@ -276,7 +276,8 @@ public class Controller {
             session.close();
             return true;
         } catch (Exception ex) {
-            session.close();
+            if(session.isOpen())
+                session.close();
             return false;
         }
     }

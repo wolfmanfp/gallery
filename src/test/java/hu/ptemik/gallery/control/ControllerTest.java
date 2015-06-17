@@ -54,7 +54,6 @@ public class ControllerTest {
 
     @Before
     public void setUp() {
-        session = sessionFactory.openSession();
         user1.setFirstName("Péter");
         user1.setLastName("Farkas");
         user1.setPasswordHash(Encrypt.encrypt("lolololol"));
@@ -68,20 +67,23 @@ public class ControllerTest {
         user2.setEmail("jancsiij@gmail.com");
         
         pic1.setTitle("Cool'n'The Gang");
-        pic1.setDescription("Such picture");
-        
-        pic1.setUrl("www.doge.com/swagie");
+        pic1.setDescription("#Summer,#rekt");
+        pic1.setUrl("http://www.fluidraconnect.com/wp-content/uploads/2014/02/foto-nova.jpg");
 
-        pic2.setTitle("Cool'n'The Gang2");
-        pic2.setDescription("Such picture2");
-        
-        pic2.setUrl("www.doge.com/swagie2");
+        pic2.setTitle("Spoderman");
+        pic2.setDescription("discripzun");
+        pic2.setUrl("https://pbs.twimg.com/profile_images/2306531900/sec5qf2agnxnlnxcjtjk_400x400.png");
         
         pic3.setTitle("#1 Dad");
         pic3.setDescription("#GOT,#Fire,#LordOfLight");
-        
         pic3.setUrl("http://img-9gag-fun.9cache.com/photo/aPGwYQg_460s.jpg");
-        session.close();
+        
+        Controller.newUser(user1);
+        Controller.newUser(user2);
+        Controller.newPicture(pic1, user1);
+        Controller.newPicture(pic2, user1);
+        Controller.newPicture(pic3, user2);
+        
     }
 
     @After
@@ -97,7 +99,7 @@ public class ControllerTest {
      */
     @Test
     public void testNewUser() throws Exception {
-        int rand = (int )(Math.random() * 50 + 1);
+        int rand = (int )(Math.random() * 500 + 1);
         System.out.println("newUser");
         User localUser1 = new User("Test"+rand, "test","test"+rand+"@test.t", "Test", "Tamás");
       
@@ -112,7 +114,7 @@ public class ControllerTest {
     @Test
     public void testNewPicture() throws Exception {
         
-        int rand = (int )(Math.random() * 50 + 1);
+        int rand = (int )(Math.random() * 500 + 1);
         System.out.println("newPicture");
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
         Picture pic = new Picture("Title", "Desc", "randomUrl"+rand+".com");
@@ -122,12 +124,13 @@ public class ControllerTest {
         assertTrue(Controller.newPicture(pic, localUser1));
         assertFalse(Controller.newPicture(pic, localUser1));
         Controller.deletePicture(pic);
+        Thread.sleep(1000);
         Controller.deleteUser(localUser1);
     }
     
     @Test
     public void testQueryUsers() {
-        int rand = (int )(Math.random() * 50 + 1);
+        int rand = (int )(Math.random() * 500 + 1);
         System.out.println("queryUsers");
         int numberOfUsers = Controller.queryUsers().size();
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
@@ -149,7 +152,7 @@ public class ControllerTest {
         Controller.newUser(localUser1);
         
         assertNotNull(Controller.submitLogin(localUser1.getUserName(), "test"));
-        
+        Controller.deleteUser(localUser1);
     }
 
     
@@ -161,7 +164,7 @@ public class ControllerTest {
     public void testQueryPictures_User() {
         System.out.println("queryPictures(user)");
   
-        int rand = (int )(Math.random() * 50 + 1);
+        int rand = (int )(Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
         Picture localPic1 = new Picture("Title", "Desc", "randomUrl"+rand+".com");
         Picture localPic2 = new Picture("Title", "Desc", "randomUrl"+rand*2+".com");
@@ -174,7 +177,13 @@ public class ControllerTest {
         
         Controller.deletePicture(localPic1);
         Controller.deletePicture(localPic2);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Controller.deleteUser(localUser1);
+        
     }
 
     /**
@@ -186,7 +195,7 @@ public class ControllerTest {
         System.out.println("queryPictures(user)");
         
         
-        int rand = (int )(Math.random() * 50 + 1);
+        int rand = (int )(Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
         Picture localPic1 = new Picture("Title", "Desc", "randomUrl"+rand+".com");
         Picture localPic2 = new Picture("Title", "Desc", "randomUrl"+rand*2+".com");
@@ -199,6 +208,11 @@ public class ControllerTest {
         
         Controller.deletePicture(localPic1);
         Controller.deletePicture(localPic2);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Controller.deleteUser(localUser1);
         
     }
@@ -210,7 +224,7 @@ public class ControllerTest {
     public void testFindUser() {
         System.out.println("findUser(String)");
         int numberOfpictures = Controller.queryPictures().size();
-        int rand = (int )(Math.random() * 50 + 1);
+        int rand = (int )(Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
       
         Controller.newUser(localUser1);
@@ -230,7 +244,7 @@ public class ControllerTest {
     public void testQueryPictures_0args() {
         System.out.println("queryPictures()");
         int numberOfpictures = Controller.queryPictures().size();
-        int rand = (int )(Math.random() * 50 + 1);
+        int rand = (int )(Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
         Picture pic = new Picture("Title", "Desc", "randomUrl"+rand+".com");
         
@@ -239,6 +253,11 @@ public class ControllerTest {
         
         assertTrue(Controller.queryPictures().size() == numberOfpictures + 1);
         Controller.deleteUser(localUser1);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Controller.deletePicture(pic);
     }
 
