@@ -15,9 +15,14 @@
         <%
             User user = (User) session.getAttribute("user");
             String username = request.getParameter("username");
-            User currentUser = Controller.findUser(username);
-            List<Picture> pictureList = Controller.queryPictures(username);
-            boolean isCurrentUser = user!=null && user.getUserName().equals(username);
+            User currentUser = null;
+            List<Picture> pictureList = null;
+            boolean isCurrentUser = false;
+            try {
+                currentUser = Controller.findUser(username);
+                pictureList = Controller.queryPictures(username);
+                isCurrentUser = user!=null && user.getUserName().equals(username);
+            } catch (Exception ex) {}
         %>
         <header class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -44,8 +49,13 @@
         </header>
         <div class="jumbotron jumbotron-special jumbotron-plain">
             <div class="container">
-                <h1><% out.println(username); %> 
-                    <small><% out.println(currentUser.getLastName() + " " + currentUser.getFirstName());%></small>
+                <h1>
+                <%
+                    if (currentUser!=null)
+                        out.println(username);
+                    else out.println("Hiba");
+                %> 
+                    <small><% if (currentUser!=null) out.println(currentUser.getLastName() + " " + currentUser.getFirstName());%></small>
                 <%
                     if (isCurrentUser) {
                 %>
@@ -56,6 +66,7 @@
                 </h1>
                 <div class="row">
                     <%
+                        if(currentUser!=null) {
                         for (Picture picture: pictureList) {
                         out.println("<div class=\"thumb col-md-4\">"+
                                 "<div class=\"thumbnail\">"+
@@ -64,6 +75,7 @@
                                 "<h3>"+picture.getTitle()+"</h3>"+
                                 "<p>"+picture.getDescription()+"</p>"+
                                 "</div></div></div>");
+                        }
                         }
                     %>
                 </div>
