@@ -15,33 +15,45 @@
         <header class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header navbar-left">
-                    <img class="navbar-brand" src="logo.png" alt="Gallery">
+                    <img class="navbar-brand" src="img/logo.png" alt="Gallery">
                 </div>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="users.jsp"><i class="fa fa-picture-o"></i> Képek</a></li>
                     <% 
                         if (user==null) {
                     %>
-                    <li><a href="registration.jsp"><i class="fa fa-user"></i> Regisztráció</a></li>
+                    <li><a href="registration.jsp"><i class="fa fa-key"></i> Regisztráció</a></li>
                     <li><a href="login.jsp"><i class="fa fa-sign-in"></i> Bejelentkezés</a></li>
                     <% } else { %>
-                    <li><a href="pictures.jsp?username=<%=user.getUserName()%>"><i class="fa fa-picture-o"></i> <%=user.getUserName()%></a></li>
-                    <li><a href="#"><i class="fa fa-cloud-upload"></i> Feltöltés</a></li>
-                    <li><a href="LogoutServlet"><i class="fa fa-cloud-upload"></i> Kijelentkezés</a></li>
+                    <li>
+                        <a href="pictures.jsp?username=<%=user.getUserName()%>">
+                            <i class="fa fa-user"></i> <%=user.getUserName()%>
+                        </a>
+                    </li>
+                    <li><a href="upload.jsp"><i class="fa fa-upload"></i> Feltöltés</a></li>
+                    <li><a href="LogoutServlet"><i class="fa fa-sign-out"></i> Kijelentkezés</a></li>
                     <% } %>
-                    <li><a href="users.jsp"><i class="fa fa-users"></i> Felhasználók</a></li>
                 </ul>
             </div>
         </header>
         <div class="jumbotron jumbotron-index">
             <div class="container">
-                <h1>Oszd meg legszebb képeidet</h1>
-                <p><a href="registration.jsp" class="btn btn-lg btn-primary">Regisztráció</a></p>
+                <h1>Regisztrálj, és oszd meg legjobb képeidet</h1>
+                <p>
+                    <a href="registration.jsp" class="btn btn-lg btn-primary">
+                        <i class="fa fa-key"></i> Regisztrálok
+                    </a>
+                </p>
             </div>
         </div>
         <div class="jumbotron jumbotron-index">
             <div class="container">
-                <h1>Böngéssz mások képei között</h1>
-                <p><a href="#" class="btn btn-lg btn-primary">Képek</a></p>
+                <h1>Böngéssz a feltöltött képek között</h1>
+                <p>
+                    <a href="users.jsp" class="btn btn-lg btn-primary">
+                        <i class="fa fa-picture-o"></i> Lássuk a medvét!
+                    </a>
+                </p>
             </div>
         </div>
         <div class="jumbotron jumbotron-index">

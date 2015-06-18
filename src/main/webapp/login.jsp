@@ -12,10 +12,10 @@
         <header class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header navbar-left">
-                    <a href="index.jsp"><img class="navbar-brand" src="logo.png" alt="Gallery"></a>
+                    <a href="index.jsp"><img class="navbar-brand" src="img/logo.png" alt="Gallery"></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="index.jsp"><i class="fa fa-arrow-left"></i> Vissza</a></li>
+                    <li><a href="index.jsp"><i class="fa fa-arrow-left"></i> Főoldal</a></li>
                 </ul>
             </div>
         </header>
@@ -35,14 +35,17 @@
                         <legend>Bejelentkezés</legend>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="username">Felhasználónév:</label> 
-                            <input class="form-control input-md" value="<% if(username!=null) out.println(username); %>" name="username" type="text">
+                            <input class="form-control input-md" 
+                                   value="<% if(username!=null) out.println(username); %>" name="username" type="text">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="password">Jelszó:</label> 
                             <input class="form-control input-md" name="password" type="password">
                         </div>
                         <div class="form-group col-md-12">
-                            <button type="submit" class="btn btn-default btn-primary">Bejelentkezés</button>
+                            <button type="submit" class="btn btn-default btn-primary">
+                                <i class="fa fa-sign-in"></i> Bejelentkezés
+                            </button>
                         </div>
                     </fieldset>
                 </form>

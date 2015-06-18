@@ -101,7 +101,6 @@ public class Controller {
                 pic.setUser(user);
                 session.beginTransaction();
                 session.persist(pic);
-                //session.persist(user);
                 session.getTransaction().commit();
                 session.close();
                 return true;
