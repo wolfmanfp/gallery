@@ -1,5 +1,9 @@
 package hu.ptemik.gallery.entities;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,82 +19,35 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "PICTURES")
+@NoArgsConstructor
 public class Picture implements Serializable {
+
     @Id
     @Column(name = "PICTURE_ID")
     @GeneratedValue
     private int pictureId;
 
+    @Getter @Setter
     @ManyToOne
-    @JoinColumn(name="USER_ID")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
-    @Column(name="TITLE", length = 25)
+    @Getter @Setter
+    @Column(name = "TITLE", length = 25)
     private String title;
 
-    @Column(name="DESCRIPTION", length = 100)
+    @Getter @Setter
+    @Column(name = "DESCRIPTION", length = 100)
     private String description;
 
-    @Column(name="URL", unique = true)
+    @Getter @Setter
+    @Column(name = "URL", unique = true)
     private String url;
-
-    public Picture() {
-    }
     
-    public Picture(  String title, String description, String url) {
+    public Picture(String title, String description, String url) {
         this.title = title;
         this.description = description;
         this.url = url;
     }
-    
-    //Getters
 
-    public int getPictureId() {
-        return pictureId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-    
-    //Setter
-
-    public void setPictureId(int pictureId) {
-        this.pictureId = pictureId;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    @Override
-    public String toString() {
-        return "Picture{" + "pictureId=" + pictureId + ", user=" + user + ", title=" + title + ", description=" + description + ", url=" + url + '}';
-    }
- 
-    
 }
