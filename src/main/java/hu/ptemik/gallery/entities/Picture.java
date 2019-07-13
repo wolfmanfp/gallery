@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package hu.ptemik.gallery.dto;
+package hu.ptemik.gallery.entities;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -25,19 +20,22 @@ public class Picture implements Serializable {
     @Column(name = "PICTURE_ID")
     @GeneratedValue
     private int pictureId;
+
     @ManyToOne
     @JoinColumn(name="USER_ID")
     private User user;
+
     @Column(name="TITLE", length = 25)
     private String title;
+
     @Column(name="DESCRIPTION", length = 100)
     private String description;
+
     @Column(name="URL", unique = true)
     private String url;
 
     public Picture() {
     }
-
     
     public Picture(  String title, String description, String url) {
         this.title = title;

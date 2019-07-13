@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@page import="hu.ptemik.gallery.dto.User" %>
+<%@page import="hu.ptemik.gallery.entities.User" %>
 <html>
     <head>
         <title>Regisztráció</title>

@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package hu.ptemik.gallery.hibernate;
+package hu.ptemik.gallery.util;
 
-import hu.ptemik.gallery.dto.Picture;
-import hu.ptemik.gallery.dto.User;
+import hu.ptemik.gallery.entities.Picture;
+import hu.ptemik.gallery.entities.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -23,7 +18,7 @@ public class HibernateUtil {
 
     static {
         try {
-            // Create the SessionFactory from standard (hibernate.cfg.xml) 
+            // Create the SessionFactory from standard (hibernate.cfg.xml)
             // config file.
             Configuration configuration = new Configuration().configure();
             configuration.addAnnotatedClass(User.class);

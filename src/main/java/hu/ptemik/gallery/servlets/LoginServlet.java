@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.ptemik.gallery.servlets;
 
 import hu.ptemik.gallery.control.Controller;
-import hu.ptemik.gallery.dto.User;
+import hu.ptemik.gallery.entities.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -1,7 +1,7 @@
-<%@page import="hu.ptemik.gallery.dto.Picture"%>
+<%@page import="hu.ptemik.gallery.entities.Picture"%>
 <%@page import="java.util.List"%>
 <%@page import="hu.ptemik.gallery.control.Controller"%>
-<%@page import="hu.ptemik.gallery.dto.User"%>
+<%@page import="hu.ptemik.gallery.entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

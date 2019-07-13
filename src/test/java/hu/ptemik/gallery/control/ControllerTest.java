@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.ptemik.gallery.control;
 
-import hu.ptemik.gallery.dto.Picture;
-import hu.ptemik.gallery.dto.User;
-import hu.ptemik.gallery.hibernate.HibernateUtil;
+import hu.ptemik.gallery.entities.Picture;
+import hu.ptemik.gallery.entities.User;
+import hu.ptemik.gallery.util.Encrypt;
+import hu.ptemik.gallery.util.HibernateUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.Session;
@@ -39,7 +35,6 @@ public class ControllerTest {
     @BeforeClass
     public static void setUpClass() {
         sessionFactory = HibernateUtil.getSessionFactory();
-
     }
 
     @AfterClass
@@ -172,7 +167,6 @@ public class ControllerTest {
             Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         Controller.deleteUser(localUser1);
-        
     }
 
     /**
@@ -211,7 +205,6 @@ public class ControllerTest {
     @Test
     public void testFindUser() {
         System.out.println("findUser(String)");
-        int numberOfpictures = Controller.queryPictures().size();
         int rand = (int )(Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
       
@@ -220,7 +213,6 @@ public class ControllerTest {
         assertEquals(Controller.findUser(localUser1.getUserName()).getUserName(), localUser1.getUserName());
         
         Controller.deleteUser(localUser1);
-        
     }
 
     /**
@@ -229,7 +221,7 @@ public class ControllerTest {
     @Test
     public void testQueryPictures_0args() {
         System.out.println("queryPictures()");
-        int numberOfpictures = Controller.queryPictures().size();
+        int numberOfPictures = Controller.queryPictures().size();
         int rand = (int )(Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
         Picture pic = new Picture("Title", "Desc", "randomUrl"+rand+".com");
@@ -237,7 +229,7 @@ public class ControllerTest {
         Controller.newUser(localUser1);
         Controller.newPicture(pic, localUser1);
         
-        assertTrue(Controller.queryPictures().size() == numberOfpictures + 1);
+        assertTrue(Controller.queryPictures().size() == numberOfPictures + 1);
         Controller.deleteUser(localUser1);
         try {
             Thread.sleep(1000);

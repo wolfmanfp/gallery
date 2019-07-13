@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.ptemik.gallery.control;
 
-import hu.ptemik.gallery.dto.Picture;
-import hu.ptemik.gallery.dto.User;
-import hu.ptemik.gallery.hibernate.HibernateUtil;
+import hu.ptemik.gallery.entities.Picture;
+import hu.ptemik.gallery.entities.User;
+import hu.ptemik.gallery.util.Encrypt;
+import hu.ptemik.gallery.util.HibernateUtil;
 import java.util.List;
 import java.sql.SQLException;
 import org.hibernate.Query;
@@ -28,7 +24,6 @@ public class Controller {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query getUsers = session.createQuery("from User");
         List<User> users = getUsers.list();
-//        System.out.println("Number of useres found: "+ users.size());
         session.close();
         return users;
     }
@@ -118,7 +113,7 @@ public class Controller {
     /**
      * Returns a list of Picture objects according to the cryteria User object.
      *
-     * @param user
+     * @param user user
      * @return List<User>
      */
     public static List<Picture> queryPictures(User user) {
@@ -133,9 +128,9 @@ public class Controller {
     }
 
     /**
-     * Returns a list of Picture objects according to the cryteria userId.
+     * Returns a list of Picture objects according to the criteria userId.
      *
-     * @param userId int
+     * @param userName int
      * @return List<User>
      */
     public static List<Picture> queryPictures(String userName) {
@@ -146,7 +141,7 @@ public class Controller {
     /**
      * Finds a User according to userId
      *
-     * @param userId
+     * @param userName
      * @return Returns the User Object.
      */
     public static User findUser(String userName) {
@@ -242,7 +237,7 @@ public class Controller {
     /**
      * Delets a Picture according to Picture object
      *
-     * @param user Picture
+     * @param pic Picture
      * @return Returns true if successful, false if not.
      */
     public static boolean deletePicture(Picture pic) {
