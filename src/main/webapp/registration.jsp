@@ -1,12 +1,12 @@
-<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@page import="hu.ptemik.gallery.entities.User" %>
 <html>
     <head>
         <title>Regisztráció</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css" >
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
         <header class="navbar navbar-default navbar-static-top">
@@ -26,21 +26,20 @@
                     String lastName = request.getParameter("lastName");
                     String username = request.getParameter("username");
                     String email = request.getParameter("email");
-                    
                     String errorMessage = (String) request.getAttribute("errorMessage");
-                    if (errorMessage != null) {
-                        out.println("<div class=\"alert alert-danger\" role=\"alert\">"
-                                + "<i class=\"fa fa-exclamation-triangle\"></i> " + errorMessage
-                                + " </div>");
-                    }
-                    
                     String successMessage = (String) request.getAttribute("successMessage");
-                    if (successMessage != null) {
-                        out.println("<div class=\"alert alert-success\" role=\"alert\">"
-                                + "<i class=\"fa fa-check\"></i> " + successMessage
-                                + " </div>");
-                    }
                 %>
+
+                <c:if test="${errorMessage != null}">
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa fa-exclamation-triangle"></i> <%= errorMessage %>
+                    </div>
+                </c:if>
+                <c:if test="${successMessage != null}">
+                    <div class="alert alert-success" role="alert">
+                        <i class="fa fa-check"></i> <%= successMessage %>
+                    </div>
+                </c:if>
                 <form class="gallery-form" role="form" action="RegistrationServlet" method="post">
                     <fieldset>
                         <legend>Regisztráció</legend>

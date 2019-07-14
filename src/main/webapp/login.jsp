@@ -1,12 +1,12 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@page import="hu.ptemik.gallery.entities.User" %>
 <html>
     <head>
         <title>Bejelentkezés</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css" >
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
         <header class="navbar navbar-default navbar-static-top">
@@ -24,23 +24,23 @@
                 <%
                     String username = request.getParameter("username");
                     String errorMessage = (String) request.getAttribute("errorMessage");
-                    if (errorMessage != null) {
-                        out.println("<div class=\"alert alert-danger\" role=\"alert\">"
-                                + "<i class=\"fa fa-exclamation-triangle\"></i> " + errorMessage
-                                + " </div>");
-                    }
                 %>
+                <c:if test="${errorMessage != null}">
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa fa-exclamation-triangle"></i> <%= errorMessage %>
+                    </div>
+                </c:if>
                 <form class="gallery-form" action="LoginServlet" role="form" method="post">
                     <fieldset>
                         <legend>Bejelentkezés</legend>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="username">Felhasználónév:</label> 
-                            <input class="form-control input-md" 
-                                   value="<% if(username!=null) out.println(username); %>" name="username" type="text">
+                            <input id="username" name="username" class="form-control input-md"
+                                   value="<% if(username != null) out.println(username); %>" type="text">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="password">Jelszó:</label> 
-                            <input class="form-control input-md" name="password" type="password">
+                            <input id="password" name="password" class="form-control input-md" type="password">
                         </div>
                         <div class="form-group col-md-12">
                             <button type="submit" class="btn btn-default btn-primary">
