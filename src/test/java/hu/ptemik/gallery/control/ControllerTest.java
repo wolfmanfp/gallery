@@ -4,16 +4,13 @@ import hu.ptemik.gallery.entities.Picture;
 import hu.ptemik.gallery.entities.User;
 import hu.ptemik.gallery.util.Encrypt;
 import hu.ptemik.gallery.util.HibernateUtil;
+import org.hibernate.SessionFactory;
+import org.junit.jupiter.api.*;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -22,7 +19,6 @@ import static org.junit.Assert.*;
 public class ControllerTest {
 
     private static SessionFactory sessionFactory;
-    private Session session;
     private User user1 = new User();
     private User user2 = new User();
     private Picture pic1 = new Picture();
@@ -32,17 +28,17 @@ public class ControllerTest {
     public ControllerTest() {
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDownClass() {
 //        sessionFactory.close();
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         user1.setFirstName("Péter");
         user1.setLastName("Farkas");
@@ -75,7 +71,7 @@ public class ControllerTest {
         Controller.newPicture(pic3, user2);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         //session.close();
     }
@@ -85,7 +81,7 @@ public class ControllerTest {
      */
     @Test
     public void testNewUser() throws Exception {
-        int rand = (int )(Math.random() * 500 + 1);
+        int rand = (int) (Math.random() * 500 + 1);
         System.out.println("newUser");
         User localUser1 = new User("Test"+rand, "test","test"+rand+"@test.t", "Test", "Tamás");
       
@@ -99,8 +95,7 @@ public class ControllerTest {
      */
     @Test
     public void testNewPicture() throws Exception {
-        
-        int rand = (int )(Math.random() * 500 + 1);
+        int rand = (int) (Math.random() * 500 + 1);
         System.out.println("newPicture");
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
         Picture pic = new Picture("Title", "Desc", "randomUrl"+rand+".com");
@@ -116,7 +111,7 @@ public class ControllerTest {
     
     @Test
     public void testQueryUsers() {
-        int rand = (int )(Math.random() * 500 + 1);
+        int rand = (int) (Math.random() * 500 + 1);
         System.out.println("queryUsers");
         int numberOfUsers = Controller.queryUsers().size();
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
@@ -133,7 +128,7 @@ public class ControllerTest {
     public void testSubmitLogin() {
         System.out.println("submitLogin");
         
-        int rand = (int )(Math.random() * 500 + 1);
+        int rand = (int) (Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, Encrypt.encrypt("test"),"test"+rand+"@test.t", "Test", "Tamás");
         Controller.newUser(localUser1);
         
@@ -148,7 +143,7 @@ public class ControllerTest {
     public void testQueryPictures_User() {
         System.out.println("queryPictures(user)");
   
-        int rand = (int )(Math.random() * 500 + 1);
+        int rand = (int) (Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
         Picture localPic1 = new Picture("Title", "Desc", "randomUrl"+rand+".com");
         Picture localPic2 = new Picture("Title", "Desc", "randomUrl"+rand*2+".com");
@@ -195,8 +190,8 @@ public class ControllerTest {
         } catch (InterruptedException ex) {
             Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         Controller.deleteUser(localUser1);
-        
     }
 
     /**
@@ -205,7 +200,7 @@ public class ControllerTest {
     @Test
     public void testFindUser() {
         System.out.println("findUser(String)");
-        int rand = (int )(Math.random() * 500 + 1);
+        int rand = (int) (Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
       
         Controller.newUser(localUser1);
@@ -222,7 +217,7 @@ public class ControllerTest {
     public void testQueryPictures_0args() {
         System.out.println("queryPictures()");
         int numberOfPictures = Controller.queryPictures().size();
-        int rand = (int )(Math.random() * 500 + 1);
+        int rand = (int) (Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
         Picture pic = new Picture("Title", "Desc", "randomUrl"+rand+".com");
         
