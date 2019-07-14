@@ -4,10 +4,11 @@ import hu.ptemik.gallery.entities.Picture;
 import hu.ptemik.gallery.entities.User;
 import hu.ptemik.gallery.util.Encrypt;
 import hu.ptemik.gallery.util.HibernateUtil;
-import java.util.List;
-import java.sql.SQLException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
+
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -73,11 +74,10 @@ public class Controller {
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            if(session.isOpen())
+            if (session.isOpen())
                 session.close();
             return false;
         }
-
     }
 
     /**
@@ -85,7 +85,7 @@ public class Controller {
      *
      * @param pic The url of the picture.
      * @param user The uploader.
-     * @return True if succesful, false if not.
+     * @return True if successful, false if not.
      */
     public static boolean newPicture(Picture pic, User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -111,7 +111,7 @@ public class Controller {
     }
 
     /**
-     * Returns a list of Picture objects according to the cryteria User object.
+     * Returns a list of Picture objects according to the User object.
      *
      * @param user user
      * @return List<User>
@@ -128,7 +128,7 @@ public class Controller {
     }
 
     /**
-     * Returns a list of Picture objects according to the criteria userId.
+     * Returns a list of Picture objects according to the userId.
      *
      * @param userName int
      * @return List<User>
@@ -163,7 +163,6 @@ public class Controller {
      */
     public static boolean isExistingUser(String userName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        User user;
         Query query = session.createQuery("from User where userName = :userName");
         query.setParameter("userName", userName);
 
@@ -184,7 +183,6 @@ public class Controller {
      */
     public static boolean isExistingEmail(String email) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        User user;
         Query query = session.createQuery("from User where email = :email");
         query.setParameter("email", email);
 
@@ -222,7 +220,7 @@ public class Controller {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            Query query = session.createQuery("delete Picture where pictureId = :pictureId");
+            Query query = session.createQuery("delete Picture where id = :pictureId");
             query.setParameter("pictureId", pictureId);
             query.executeUpdate();
             session.getTransaction().commit();
@@ -249,7 +247,7 @@ public class Controller {
             session.close();
             return true;
         } catch (Exception ex) {
-            if(session.isOpen())
+            if (session.isOpen())
                 session.close();
             return false;
         }
@@ -270,7 +268,7 @@ public class Controller {
             session.close();
             return true;
         } catch (Exception ex) {
-            if(session.isOpen())
+            if (session.isOpen())
                 session.close();
             return false;
         }
