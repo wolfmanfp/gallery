@@ -103,6 +103,33 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>nl.geodienstencentrum.maven</groupId>
+                <artifactId>sass-maven-plugin</artifactId>
+                <version>3.7.2</version>
+                <configuration>
+                    <resources>
+                        <resource>
+                            <source>
+                                <directory>${basedir}/src/main/webapp/styles</directory>
+                                <includes>
+                                    <include>**/*.scss</include>
+                                </includes>
+                            </source>
+                            <relativeOutputDirectory>..</relativeOutputDirectory>
+                            <destination>${basedir}/src/main/webapp/styles</destination>
+                        </resource>
+                    </resources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>update-stylesheets</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>

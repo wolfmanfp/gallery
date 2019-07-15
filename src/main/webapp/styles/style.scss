@@ -1,0 +1,137 @@
+@import url(https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css);
+@import url(https://use.fontawesome.com/releases/v5.9.0/css/all.css);
+
+$bgcolor: #286090;
+$textcolor: #eee;
+
+html, body {
+    height: 100%;
+}
+
+@mixin navbar {
+    background-color: $bgcolor;
+    p {
+        color: $textcolor;
+    }
+}
+
+@mixin navbar-href {
+    a {
+        color: $textcolor;
+        &:hover {
+            color: whitesmoke;
+            text-decoration: none;
+        }
+        &:visited {
+            color: $textcolor;
+        }
+    }
+}
+
+@mixin alert($color) {
+    width: 720px;
+    margin: 0 auto 20px;
+    border-radius: 0;
+    background-color: $color;
+    border-color: $color;
+    color: $textcolor;
+}
+
+.navbar-static-top  {
+    margin-bottom: 0;
+    border-bottom: 0;
+    @include navbar;
+    .navbar-right {
+        li {
+            @include navbar-href;
+            margin-left: 15px;
+        }
+        .active a {
+            &:visited, &:active {
+                color: lighten($bgcolor, 40%);
+            }
+        }
+    } 
+}
+
+.navbar-static-bottom {
+    @include navbar;
+    @include navbar-href;
+}
+
+.jumbotron {
+    background-size: cover;
+    margin-bottom: 0;
+    p {
+        padding-top: 20px;
+    }
+    .btn-primary {
+        border-radius: 0;
+    }
+}
+
+.gallery-form {
+    width: 480px;
+    margin: 0 auto;
+    label, legend {
+        color: $textcolor;
+        font-weight: normal;
+    }
+    input {
+        border-radius: 0;
+    }
+}
+
+.jumbotron {
+    border-radius: 0;
+}
+
+.jumbotron-special {
+    min-height: 100%;
+    height: auto;
+    h1 small {
+        color: #555;
+    }
+}
+
+.jumbotron-plain {
+    background: $textcolor;
+    background-image: none;
+    color: invert($textcolor, 100%);
+}
+
+.jumbotron-index {
+    h1, input[type=file] {
+        color: $textcolor;
+    }
+    &:nth-child(2) {
+        background: url('../img/bg01.jpg') no-repeat;
+    }
+    &:nth-child(3){
+        background: url('../img/bg02.jpg') no-repeat;
+    }
+    &:nth-child(4) {
+        background: url('../img/bg03.jpg') no-repeat;
+    }    
+}
+
+.alert-danger {
+    @include alert(#A94442);
+}
+
+.alert-success {
+    @include alert(#3C763D);
+}
+
+.list-group-item {
+    &:first-child, &:last-child {
+        border-radius: 0;
+    }
+}
+
+fieldset {
+    .col-md-6, .col-md-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

@@ -8,23 +8,23 @@
         <title>Galéria</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
     </head>
     <body>
         <%
             User user = (User) session.getAttribute("user");
         %>
-        <header class="navbar navbar-default navbar-static-top">
+        <header class="navbar navbar-expand-md navbar-light navbar-static-top">
             <div class="container">
                 <div class="navbar-header navbar-left">
                     <a href="index.jsp"><img class="navbar-brand" src="img/logo.png" alt="Gallery"></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="#"><i class="fa fa-picture-o"></i> Képek</a></li>
+                    <li class="active"><a href="#"><i class="far fa-images"></i> Képek</a></li>
                     <c:choose>
                         <c:when test="${user == null}">
                             <li><a href="registration.jsp"><i class="fa fa-key"></i> Regisztráció</a></li>
-                            <li><a href="login.jsp"><i class="fa fa-sign-in"></i> Bejelentkezés</a></li>
+                            <li><a href="login.jsp"><i class="fas fa-sign-in-alt"></i> Bejelentkezés</a></li>
                         </c:when>
                         <c:otherwise>
                             <li>
@@ -33,7 +33,7 @@
                                 </a>
                             </li>
                             <li><a href="upload.jsp"><i class="fa fa-upload"></i> Feltöltés</a></li>
-                            <li><a href="LogoutServlet"><i class="fa fa-sign-out"></i> Kijelentkezés</a></li>
+                            <li><a href="LogoutServlet"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</a></li>
                         </c:otherwise>
                     </c:choose>
                 </ul>

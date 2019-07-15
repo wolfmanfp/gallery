@@ -10,7 +10,7 @@
         <title>Galéria</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
     </head>
     <body>
         <%
@@ -25,26 +25,26 @@
                 isCurrentUser = user != null && user.getUserName().equals(username);
             } catch (Exception ex) {}
         %>
-        <header class="navbar navbar-default navbar-static-top">
+        <header class="navbar navbar-expand-md navbar-dark navbar-static-top">
             <div class="container">
                 <div class="navbar-header navbar-left">
                     <a href="index.jsp"><img class="navbar-brand" src="img/logo.png" alt="Gallery"></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="users.jsp"><i class="fa fa-picture-o"></i> Képek</a></li>
+                    <li><a href="users.jsp"><i class="far fa-images"></i> Képek</a></li>
                     <c:choose>
-                        <c:when test="${user == null}>">
+                        <c:when test="<%= user == null %>">
                             <li><a href="registration.jsp"><i class="fa fa-key"></i> Regisztráció</a></li>
-                            <li><a href="login.jsp"><i class="fa fa-sign-in"></i> Bejelentkezés</a></li>
+                            <li><a href="login.jsp"><i class="fas fa-sign-in-alt"></i> Bejelentkezés</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li <% if (isCurrentUser) { out.println("class=\"active active-user\""); } %>>
+                            <li <% if (isCurrentUser) { out.println("class=\"active\""); } %>>
                                 <a href="pictures.jsp?username=<%= user.getUserName() %>">
                                     <i class="fa fa-user"></i> <%= user.getUserName() %>
                                 </a>
                             </li>
                             <li><a href="upload.jsp"><i class="fa fa-upload"></i> Feltöltés</a></li>
-                            <li><a href="LogoutServlet"><i class="fa fa-sign-out"></i> Kijelentkezés</a></li>
+                            <li><a href="LogoutServlet"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</a></li>
                         </c:otherwise>
                     </c:choose>
                 </ul>
@@ -60,15 +60,13 @@
                                 <a href="upload.jsp" class="btn btn-lg btn-primary"><i class="fa fa-upload"></i> Feltöltés</a>
                             </c:if>
                         </h1>
-                        <div class="row">
+                        <div class="card-columns">
                             <c:forEach items="<%= pictureList %>" var="pic">
-                                <div class="thumb col-md-4">
-                                    <div class="thumbnail">
-                                        <img src="${pic.url}" alt="${pic.title}">
-                                        <div class="caption">
-                                            <h3>${pic.title}</h3>
-                                            <p>${pic.description}</p>
-                                        </div>
+                                <div class="card">
+                                    <img class="card-img-top" src="${pic.url}" alt="${pic.title}">
+                                    <div class="card-body">
+                                        <h3 class="card-title">${pic.title}</h3>
+                                        <p class="card-text">${pic.description}</p>
                                     </div>
                                 </div>
                             </c:forEach>

@@ -7,7 +7,7 @@
         <title>Feltöltés</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
     </head>
     <body>
         <%
@@ -15,7 +15,7 @@
             String errorMessage = (String) request.getAttribute("errorMessage");
             String successMessage = (String) request.getAttribute("successMessage");
         %>
-        <header class="navbar navbar-default navbar-static-top">
+        <header class="navbar navbar-expand-md navbar-light navbar-static-top">
             <div class="container">
                 <div class="navbar-header navbar-left">
                     <a href="index.jsp"><img class="navbar-brand" src="img/logo.png" alt="Gallery"></a>

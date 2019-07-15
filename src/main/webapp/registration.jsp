@@ -6,10 +6,10 @@
         <title>Regisztráció</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
     </head>
     <body>
-        <header class="navbar navbar-default navbar-static-top">
+        <header class="navbar navbar-expand-md navbar-light navbar-static-top">
             <div class="container">
                 <div class="navbar-header navbar-left">
                     <a href="index.jsp"><img class="navbar-brand" src="img/logo.png" alt="Gallery"></a>
@@ -43,33 +43,35 @@
                 <form class="gallery-form" role="form" action="RegistrationServlet" method="post">
                     <fieldset>
                         <legend>Regisztráció</legend>
-                        <div class="form-group col-md-6">
-                            <label class="control-label" for="lastName">Vezetéknév</label> 
-                            <input class="form-control input-md" 
-                                   value="<% if(lastName!=null) out.println(lastName); %>" name="lastName" type="text">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label" for="firstName">Keresztnév</label> 
-                            <input class="form-control input-md" 
-                                   value="<% if(firstName!=null) out.println(firstName); %>" name="firstName" type="text">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label" for="lastName">Vezetéknév</label>
+                                <input id="lastName" name="lastName" class="form-control input-md"
+                                       value="<% if(lastName!=null) out.println(lastName); %>" type="text">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label" for="firstName">Keresztnév</label>
+                                <input id="firstName" name="firstName" class="form-control input-md"
+                                       value="<% if(firstName!=null) out.println(firstName); %>" type="text">
+                            </div>
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="email">E-mail cím:</label> 
-                            <input class="form-control input-md" 
-                                   value="<% if(email!=null) out.println(email); %>" name="email" type="email">
+                            <input id="email" name="email" class="form-control input-md"
+                                   value="<% if(email!=null) out.println(email); %>" type="email">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="username">Felhasználónév:</label> 
-                            <input class="form-control input-md" 
-                                   value="<% if(username!=null) out.println(username); %>" name="username" type="text">
+                            <input id="username" name="username" class="form-control input-md"
+                                   value="<% if(username!=null) out.println(username); %>" type="text">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="password">Jelszó:</label> 
-                            <input class="form-control input-md" name="password" type="password">
+                            <input id="password" name="password" class="form-control input-md" type="password">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="password2">Jelszó megerősítése:</label> 
-                            <input class="form-control input-md" name="password2" type="password">
+                            <input id="password2" name="password2" class="form-control input-md" type="password">
                         </div>
                         <div class="form-group col-md-12">
                             <button type="submit" class="btn btn-default btn-primary">
