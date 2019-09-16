@@ -140,37 +140,8 @@ public class ControllerTest {
      * Test of queryPictures method, of class Controller.
      */
     @Test
-    public void testQueryPictures_User() {
-        System.out.println("queryPictures(user)");
-  
-        int rand = (int) (Math.random() * 500 + 1);
-        User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
-        Picture localPic1 = new Picture("Title", "Desc", "randomUrl"+rand+".com");
-        Picture localPic2 = new Picture("Title", "Desc", "randomUrl"+rand*2+".com");
-         
-        Controller.newUser(localUser1);
-        Controller.newPicture(localPic1, localUser1);
-        Controller.newPicture(localPic2, localUser1);
-        
-        assertTrue(Controller.queryPictures(localUser1).size() ==  2);
-        
-        Controller.deletePicture(localPic1);
-        Controller.deletePicture(localPic2);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Controller.deleteUser(localUser1);
-    }
-
-    /**
-     * Test of queryPictures method, of class Controller.
-     */
-    @Test
     public void testQueryPictures_string() {
         System.out.println("queryPictures(String)");
-        System.out.println("queryPictures(user)");
         
         int rand = (int )(Math.random() * 500 + 1);
         User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
@@ -208,30 +179,6 @@ public class ControllerTest {
         assertEquals(Controller.findUser(localUser1.getUserName()).getUserName(), localUser1.getUserName());
         
         Controller.deleteUser(localUser1);
-    }
-
-    /**
-     * Test of queryPictures method, of class Controller.
-     */
-    @Test
-    public void testQueryPictures_0args() {
-        System.out.println("queryPictures()");
-        int numberOfPictures = Controller.queryPictures().size();
-        int rand = (int) (Math.random() * 500 + 1);
-        User localUser1 = new User("Test"+rand, "test"+rand,"test"+rand+"@test.t", "Test", "Tamás");
-        Picture pic = new Picture("Title", "Desc", "randomUrl"+rand+".com");
-        
-        Controller.newUser(localUser1);
-        Controller.newPicture(pic, localUser1);
-        
-        assertTrue(Controller.queryPictures().size() == numberOfPictures + 1);
-        Controller.deleteUser(localUser1);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ControllerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Controller.deletePicture(pic);
     }
 
 }

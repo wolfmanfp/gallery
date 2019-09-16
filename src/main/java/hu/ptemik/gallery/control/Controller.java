@@ -1,12 +1,17 @@
 package hu.ptemik.gallery.control;
 
 import hu.ptemik.gallery.entities.Picture;
+import hu.ptemik.gallery.entities.Picture_;
 import hu.ptemik.gallery.entities.User;
+import hu.ptemik.gallery.entities.User_;
 import hu.ptemik.gallery.util.Encrypt;
 import hu.ptemik.gallery.util.HibernateUtil;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -23,8 +28,15 @@ public class Controller {
      */
     public static List<User> queryUsers() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query getUsers = session.createQuery("from User");
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> root = cq.from(User.class);
+        cq.select(root);
+
+        Query<User> getUsers = session.createQuery(cq);
         List<User> users = getUsers.list();
+
         session.close();
         return users;
     }
@@ -42,7 +54,6 @@ public class Controller {
         String password = Encrypt.encrypt(pw);
 
         List<User> users = queryUsers();
-
         for (User user : users) {
             if (userName.equals(user.getUserName()) && password.equals(user.getPasswordHash())) {
                 return user;
@@ -111,16 +122,21 @@ public class Controller {
     }
 
     /**
-     * Returns a list of Picture objects according to the User object.
+     * Returns a list of Picture objects according to the userName.
      *
-     * @param user user
+     * @param userName
      * @return List<User>
      */
-    public static List<Picture> queryPictures(User user) {
+    public static List<Picture> queryPictures(String userName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Query query = session.createQuery("from Picture where user = :user");
-        query.setParameter("user", user);
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Picture> cq = cb.createQuery(Picture.class);
+        Root<Picture> root = cq.from(Picture.class);
+        cq.select(root)
+                .where(cb.equal(root.get(Picture_.user).get(User_.userName), userName));
+
+        Query<Picture> query = session.createQuery(cq);
         List<Picture> pictures = query.list();
 
         session.close();
@@ -128,43 +144,42 @@ public class Controller {
     }
 
     /**
-     * Returns a list of Picture objects according to the userId.
-     *
-     * @param userName int
-     * @return List<User>
-     */
-    public static List<Picture> queryPictures(String userName) {
-        List<Picture> pictures = queryPictures(findUser(userName));
-        return pictures;
-    }
-
-    /**
-     * Finds a User according to userId
+     * Finds a User according to userName.
      *
      * @param userName
-     * @return Returns the User Object.
+     * @return Returns the User object.
      */
     public static User findUser(String userName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        User user;
-        Query query = session.createQuery("from User where userName = :userName");
-        query.setParameter("userName", userName);
-        user = (User) query.list().get(0);
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> root = cq.from(User.class);
+        cq.select(root)
+                .where(cb.equal(root.get(User_.userName), userName));
+
+        Query<User> query = session.createQuery(cq);
+        User user = query.getSingleResult();
 
         session.close();
         return user;
     }
 
     /**
-     * Finds out if a UserName already exist or not.
+     * Finds out if a UserName already exists or not.
      *
      * @param userName String
      * @return Returns true if exists, false if not.
      */
     public static boolean isExistingUser(String userName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("from User where userName = :userName");
-        query.setParameter("userName", userName);
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> root = cq.from(User.class);
+        cq.select(root)
+                .where(cb.equal(root.get(User_.userName), userName));
+        Query<User> query = session.createQuery(cq);
 
         if (!query.list().isEmpty()) {
             session.close();
@@ -183,8 +198,14 @@ public class Controller {
      */
     public static boolean isExistingEmail(String email) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("from User where email = :email");
-        query.setParameter("email", email);
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> root = cq.from(User.class);
+        cq.select(root)
+                .where(cb.equal(root.get(User_.email), email));
+
+        Query<User> query = session.createQuery(cq);
 
         if (!query.list().isEmpty()) {
             session.close();
@@ -196,50 +217,14 @@ public class Controller {
     }
 
     /**
-     * Returns a full list of Picture objects.
-     *
-     * @return List<Picture>
-     */
-    public static List<Picture> queryPictures() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        Query query = session.createQuery("from Picture");
-        List pictures = query.list();
-
-        session.close();
-        return pictures;
-    }
-
-    /**
-     * Deletes a Picture according to pictureId.
-     *
-     * @param pictureId
-     * @return Returns true if successful, false if not.
-     */
-    public static boolean deletePicture(int pictureId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            session.beginTransaction();
-            Query query = session.createQuery("delete Picture where id = :pictureId");
-            query.setParameter("pictureId", pictureId);
-            query.executeUpdate();
-            session.getTransaction().commit();
-            session.close();
-            return true;
-        } catch (Exception ex) {
-            session.close();
-            return false;
-        }
-    }
-
-    /**
-     * Delets a Picture according to Picture object
+     * Deletes a Picture according to Picture object
      *
      * @param pic Picture
      * @return Returns true if successful, false if not.
      */
     public static boolean deletePicture(Picture pic) {
         Session session = HibernateUtil.getSessionFactory().openSession();
+
         try {
             session.beginTransaction();
             session.delete(pic);
@@ -254,13 +239,14 @@ public class Controller {
     }
 
     /**
-     * Delets a User according to User object
+     * Deletes a User according to User object
      *
      * @param user User
      * @return Returns true if successful, false if not.
      */
     public static boolean deleteUser(User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
+
         try {
             session.beginTransaction();
             session.delete(user);
