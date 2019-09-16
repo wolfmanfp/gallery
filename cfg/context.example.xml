@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource name="jdbc/gallery"
+			  type="javax.sql.DataSource"
+			  auth="Container"
+			  driverClassName="org.mariadb.jdbc.Driver"
+			  url="jdbc:mariadb://localhost:3306/gallerydb?createDatabaseIfNotExist=true"
+			  username="root"
+			  password="root"
+			  maxActive="100" 
+			  maxIdle="20" 
+			  minIdle="5" 
+			  maxWait="10000"/>
+</Context>
