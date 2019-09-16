@@ -32,7 +32,7 @@ public class Controller {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
         Root<User> root = cq.from(User.class);
-        cq.select(root);
+        cq.select(root).orderBy(cb.asc(root.get(User_.userName)));
 
         Query<User> getUsers = session.createQuery(cq);
         List<User> users = getUsers.list();
