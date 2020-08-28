@@ -105,13 +105,16 @@ html, body {
         color: $textcolor;
     }
     &:nth-child(2) {
-        background: url('../img/bg01.jpg') no-repeat;
+        background: url('../img/bg01.jpg') no-repeat center;
+        background-size: cover;
     }
     &:nth-child(3){
-        background: url('../img/bg02.jpg') no-repeat;
+        background: url('../img/bg02.jpg') no-repeat center;
+        background-size: cover;
     }
     &:nth-child(4) {
-        background: url('../img/bg03.jpg') no-repeat;
+        background: url('../img/bg03.jpg') no-repeat center;
+        background-size: cover;
     }    
 }
 
