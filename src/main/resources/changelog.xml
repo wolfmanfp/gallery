@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+    
+    <changeSet id="create-table-USERS" author="wolfmanfp">
+        <createTable tableName="USERS">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="USERNAME" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="PASSWORD" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMAIL" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="FIRST_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-table-PICTURES" author="wolfmanfp">
+        <createTable tableName="PICTURES">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="USER_ID" type="INT"/>
+            <column name="TITLE" type="VARCHAR(255)"/>
+            <column name="DESCRIPTION" type="VARCHAR(1000)"/>
+            <column name="URL" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="PICTURES"
+                                 baseColumnNames="USER_ID"
+                                 constraintName="FK_PICTURES_USER_ID"
+                                 referencedTableName="USERS"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+
+</databaseChangeLog>

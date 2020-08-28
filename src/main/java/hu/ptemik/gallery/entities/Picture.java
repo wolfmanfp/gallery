@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- *
  * @author János
  */
 @Entity
@@ -18,26 +17,30 @@ public class Picture implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PICTURE_ID")
+    @Column(name = "ID")
     private int id;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @Getter @Setter
-    @Column(name = "TITLE", length = 25)
+    @Getter
+    @Setter
+    @Column(name = "TITLE")
     private String title;
 
-    @Getter @Setter
-    @Column(name = "DESCRIPTION", length = 100)
+    @Getter
+    @Setter
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @Column(name = "URL", unique = true)
     private String url;
-    
+
     public Picture(String title, String description, String url) {
         this.title = title;
         this.description = description;
