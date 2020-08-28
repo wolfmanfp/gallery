@@ -1,17 +1,14 @@
 package hu.ptemik.gallery.control;
 
+import com.querydsl.jpa.hibernate.HibernateQuery;
 import hu.ptemik.gallery.entities.Picture;
-import hu.ptemik.gallery.entities.Picture_;
+import hu.ptemik.gallery.entities.QPicture;
+import hu.ptemik.gallery.entities.QUser;
 import hu.ptemik.gallery.entities.User;
-import hu.ptemik.gallery.entities.User_;
 import hu.ptemik.gallery.util.Encrypt;
 import hu.ptemik.gallery.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -28,14 +25,11 @@ public class Controller {
      */
     public static List<User> queryUsers() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> cq = cb.createQuery(User.class);
-        Root<User> root = cq.from(User.class);
-        cq.select(root).orderBy(cb.asc(root.get(User_.userName)));
-
-        Query<User> getUsers = session.createQuery(cq);
-        List<User> users = getUsers.list();
+        QUser user = QUser.user;
+        List<User> users = new HibernateQuery<>(session).select(user)
+                .from(user)
+                .orderBy(user.userName.asc())
+                .fetch();
 
         session.close();
         return users;
@@ -114,7 +108,7 @@ public class Controller {
                 return false;
             }
         } catch (Exception ex) {
-            if (session.isOpen()) 
+            if (session.isOpen())
                 session.close();
             System.out.println(ex.getMessage());
             return false;
@@ -129,15 +123,11 @@ public class Controller {
      */
     public static List<Picture> queryPictures(String userName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Picture> cq = cb.createQuery(Picture.class);
-        Root<Picture> root = cq.from(Picture.class);
-        cq.select(root)
-                .where(cb.equal(root.get(Picture_.user).get(User_.userName), userName));
-
-        Query<Picture> query = session.createQuery(cq);
-        List<Picture> pictures = query.list();
+        QPicture picture = QPicture.picture;
+        List<Picture> pictures = new HibernateQuery<>(session).select(picture)
+                .from(picture)
+                .where(picture.user.userName.eq(userName))
+                .fetch();
 
         session.close();
         return pictures;
@@ -151,15 +141,11 @@ public class Controller {
      */
     public static User findUser(String userName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> cq = cb.createQuery(User.class);
-        Root<User> root = cq.from(User.class);
-        cq.select(root)
-                .where(cb.equal(root.get(User_.userName), userName));
-
-        Query<User> query = session.createQuery(cq);
-        User user = query.getSingleResult();
+        QUser qUser = QUser.user;
+        User user = new HibernateQuery<>(session).select(qUser)
+                .from(qUser)
+                .where(qUser.userName.eq(userName))
+                .fetchOne();
 
         session.close();
         return user;
@@ -173,21 +159,14 @@ public class Controller {
      */
     public static boolean isExistingUser(String userName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
+        QUser qUser = QUser.user;
+        User user = new HibernateQuery<>(session).select(qUser)
+                .from(qUser)
+                .where(qUser.userName.eq(userName))
+                .fetchOne();
 
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> cq = cb.createQuery(User.class);
-        Root<User> root = cq.from(User.class);
-        cq.select(root)
-                .where(cb.equal(root.get(User_.userName), userName));
-        Query<User> query = session.createQuery(cq);
-
-        if (!query.list().isEmpty()) {
-            session.close();
-            return true;
-        } else {
-            session.close();
-            return false;
-        }
+        session.close();
+        return user != null;
     }
 
     /**
@@ -198,22 +177,14 @@ public class Controller {
      */
     public static boolean isExistingEmail(String email) {
         Session session = HibernateUtil.getSessionFactory().openSession();
+        QUser qUser = QUser.user;
+        User user = new HibernateQuery<>(session).select(qUser)
+                .from(qUser)
+                .where(qUser.email.eq(email))
+                .fetchOne();
 
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> cq = cb.createQuery(User.class);
-        Root<User> root = cq.from(User.class);
-        cq.select(root)
-                .where(cb.equal(root.get(User_.email), email));
-
-        Query<User> query = session.createQuery(cq);
-
-        if (!query.list().isEmpty()) {
-            session.close();
-            return true;
-        } else {
-            session.close();
-            return false;
-        }
+        session.close();
+        return user != null;
     }
 
     /**
