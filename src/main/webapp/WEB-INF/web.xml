@@ -19,6 +19,10 @@
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>hu.ptemik.gallery.servlets.UploadServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PictureServlet</servlet-name>
+        <servlet-class>hu.ptemik.gallery.servlets.PictureServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/UploadServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PictureServlet</servlet-name>
+        <url-pattern>/picture/*</url-pattern>
     </servlet-mapping>
 
     <session-config>

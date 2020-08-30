@@ -152,6 +152,24 @@ public class Controller {
     }
 
     /**
+     * Finds a picture by its ID.
+     *
+     * @param id
+     * @return
+     */
+    public static Picture findPicture(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        QPicture qPicture = QPicture.picture;
+        Picture picture = new HibernateQuery<>(session).select(qPicture)
+                .from(qPicture)
+                .where(qPicture.id.eq(id))
+                .fetchOne();
+
+        session.close();
+        return picture;
+    }
+
+    /**
      * Finds out if a UserName already exists or not.
      *
      * @param userName String

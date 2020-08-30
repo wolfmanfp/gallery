@@ -63,7 +63,7 @@
                         <div class="card-columns">
                             <c:forEach items="<%= pictureList %>" var="pic">
                                 <div class="card">
-                                    <img class="card-img-top" src="${pic.url}" alt="${pic.title}">
+                                    <img class="card-img-top" src="/picture/${pic.id}" alt="${pic.title}">
                                     <div class="card-body">
                                         <h3 class="card-title">${pic.title}</h3>
                                         <p class="card-text">${pic.description}</p>

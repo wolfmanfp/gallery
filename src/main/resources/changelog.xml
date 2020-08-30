@@ -46,4 +46,10 @@
                                  referencedColumnNames="ID"/>
     </changeSet>
 
+    <changeSet id="add-auto-increment-to-PICTURES" author="wolfmanfp">
+        <addAutoIncrement tableName="PICTURES"
+                          columnName="ID"
+                          columnDataType="INT"/>
+    </changeSet>
+
 </databaseChangeLog>

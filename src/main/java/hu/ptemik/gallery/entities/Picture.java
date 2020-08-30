@@ -15,6 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Picture implements Serializable {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
