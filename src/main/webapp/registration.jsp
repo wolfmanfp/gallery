@@ -47,23 +47,23 @@
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="lastName">Vezetéknév</label>
                                 <input id="lastName" name="lastName" class="form-control input-md"
-                                       value="<% if(lastName!=null) out.println(lastName); %>" type="text">
+                                       value="<% if(lastName != null) out.println(lastName); %>" type="text">
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="firstName">Keresztnév</label>
                                 <input id="firstName" name="firstName" class="form-control input-md"
-                                       value="<% if(firstName!=null) out.println(firstName); %>" type="text">
+                                       value="<% if(firstName != null) out.println(firstName); %>" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="email">E-mail cím:</label> 
                             <input id="email" name="email" class="form-control input-md"
-                                   value="<% if(email!=null) out.println(email); %>" type="email">
+                                   value="<% if(email != null) out.println(email); %>" type="email">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="username">Felhasználónév:</label> 
                             <input id="username" name="username" class="form-control input-md"
-                                   value="<% if(username!=null) out.println(username); %>" type="text">
+                                   value="<% if(username != null) out.println(username); %>" type="text">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label" for="password">Jelszó:</label> 

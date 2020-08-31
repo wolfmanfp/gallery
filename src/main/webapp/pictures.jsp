@@ -1,8 +1,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.List"%>
-<%@page import="hu.ptemik.gallery.control.Controller"%>
+<%@page import="hu.ptemik.gallery.service.UserService"%>
 <%@page import="hu.ptemik.gallery.entities.Picture"%>
 <%@page import="hu.ptemik.gallery.entities.User"%>
+<%@ page import="javax.inject.Inject" %>
+<%@ page import="hu.ptemik.gallery.service.PictureService" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,14 +16,17 @@
     </head>
     <body>
         <%
+            UserService userService = new UserService();
+            PictureService pictureService = new PictureService();
+
             User user = (User) session.getAttribute("user");
             String username = request.getParameter("username");
             User profile = null;
             List<Picture> pictureList = null;
             boolean isCurrentUser = false;
             try {
-                profile = Controller.findUser(username);
-                pictureList = Controller.queryPictures(username);
+                profile = userService.findUser(username);
+                pictureList = pictureService.queryPictures(username);
                 isCurrentUser = user != null && user.getUserName().equals(username);
             } catch (Exception ex) {}
         %>

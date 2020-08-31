@@ -1,8 +1,8 @@
 package hu.ptemik.gallery.servlets;
 
-import hu.ptemik.gallery.control.Controller;
 import hu.ptemik.gallery.entities.Picture;
 import hu.ptemik.gallery.entities.User;
+import hu.ptemik.gallery.service.PictureService;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -31,6 +31,7 @@ public class UploadServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
+        PictureService pictureService = new PictureService();
 
         if (ServletFileUpload.isMultipartContent(request) && user != null) {
             try {
@@ -58,7 +59,7 @@ public class UploadServlet extends HttpServlet {
                     }
                 }
 
-                if (Controller.newPicture(pic, user)) {
+                if (pictureService.newPicture(pic, user)) {
                     request.setAttribute("successMessage", "A fájl feltöltése sikerült!");
                 } else {
                     FileUtils.deleteQuietly(uploadedFile);

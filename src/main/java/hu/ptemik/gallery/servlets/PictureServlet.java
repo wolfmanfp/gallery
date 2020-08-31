@@ -1,7 +1,7 @@
 package hu.ptemik.gallery.servlets;
 
-import hu.ptemik.gallery.control.Controller;
 import hu.ptemik.gallery.entities.Picture;
+import hu.ptemik.gallery.service.PictureService;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +16,9 @@ public class PictureServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PictureService pictureService = new PictureService();
         Integer pictureId = Integer.parseInt(request.getPathInfo().substring(1));
-        Picture picture = Controller.findPicture(pictureId);
+        Picture picture = pictureService.findPicture(pictureId);
         File file = new File(UPLOAD_DIRECTORY + File.separator + picture.getUrl());
         String filename = file.getName();
 

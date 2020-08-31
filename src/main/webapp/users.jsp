@@ -1,6 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="hu.ptemik.gallery.control.Controller"%>
+<%@page import="hu.ptemik.gallery.service.UserService"%>
 <%@page import="hu.ptemik.gallery.entities.User"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,8 @@
     <body>
         <%
             User user = (User) session.getAttribute("user");
+            UserService userService = new UserService();
+            List<User> userList = userService.queryUsers();
         %>
         <header class="navbar navbar-expand-md navbar-light navbar-static-top">
             <div class="container">
@@ -43,7 +46,7 @@
             <div class="container">
                 <h1>Felhasználók</h1>
                 <ul class="list-group">
-                    <c:forEach items="${Controller.queryUsers()}" var="user">
+                    <c:forEach items="<%= userList %>" var="user">
                         <li class="list-group-item">
                             <i class="fa fa-user"></i> <a href="pictures.jsp?username=${user.userName}">${user.userName}</a>
                         </li>

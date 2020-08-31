@@ -1,7 +1,7 @@
 package hu.ptemik.gallery.servlets;
 
-import hu.ptemik.gallery.control.Controller;
 import hu.ptemik.gallery.entities.User;
+import hu.ptemik.gallery.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +29,8 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("errorMessage", errorMessage);
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            User user = Controller.submitLogin(username, password);
+            UserService userService = new UserService();
+            User user = userService.submitLogin(username, password);
             if (user == null) {
                 errorMessage = "Hibás felhasználónév/jelszó!";
                 request.setAttribute("errorMessage", errorMessage);

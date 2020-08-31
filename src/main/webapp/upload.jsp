@@ -1,7 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="hu.ptemik.gallery.entities.User" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@page import="hu.ptemik.gallery.entities.User" %>
 <html>
     <head>
         <title>Feltöltés</title>
